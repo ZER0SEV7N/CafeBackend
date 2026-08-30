@@ -1,21 +1,31 @@
 package com.cavosh.cafebackend.auth.domain.port.in;
 
+import com.cavosh.cafebackend.auth.domain.model.Usuario;
+
+/**
+ *
+ */
 public interface LoginUseCase {
-
-    AuthResult login(LoginCommand command);
-
     record LoginCommand(
             String email,
             String password
     ) {}
 
-    record AuthResult(
-            String accessToken,
-            String tokenType,
-            Integer userId,
-            String fullName,
-            String email,
-            String rol,
-            Integer ptnLealtad
-    ){}
+    /**
+     *
+     * @param token
+     * @param usuario
+     */
+    record LoginResult(
+        String token,
+        Usuario usuario
+    ) {}
+
+    /**
+     *
+     * @param command
+     * @return
+     */
+    LoginResult login(LoginCommand command);
+
 }
