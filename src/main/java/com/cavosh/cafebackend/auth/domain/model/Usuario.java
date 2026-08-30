@@ -49,7 +49,5 @@ public record Usuario(
                 hoy,
                 hoy
         );
-
-
     }
 }

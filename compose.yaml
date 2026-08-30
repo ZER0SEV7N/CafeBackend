@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16-alpine
     container_name: cavosh_postgres
     environment:
       POSTGRES_DB: cavoshDB
@@ -10,17 +10,6 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: cavosh_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@cavosh.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres-db
 
 volumes:
   pgdata:

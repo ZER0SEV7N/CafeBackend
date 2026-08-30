@@ -16,19 +16,31 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Componente que implementa la interfaz TokenProviderPort para generar y validar tokens JWT.
+ * Utiliza la biblioteca jjwt para crear y verificar tokens JWT.
+ * El token se genera con el email del usuario como sujeto y
+ * contiene reclamos adicionales como el ID del usuario, el nombre completo y el rol.
+ * La validez del token se determina mediante la verificación de la firma y la fecha de expiración.
+ * El email del usuario se puede extraer del token decodificado.
+ * La clase utiliza una clave secreta para firmar y verificar los tokens, que se inyecta a través de las propiedades de configuración de la aplicación.
+ */
 @Component
 public class JwtTokenProviderAdapter implements TokenProviderPort {
 
     private final SecretKey secretKey;
-    private long expiration;
+    private final long expiration;
 
-    public JwtTokenProviderAdapter(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expiration}") long expirationHours) {
+    public JwtTokenProviderAdapter(@Value("${jwt.secret}") String secret,  @Value("${jwt.expiration}") long expirationHours) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        this.expiration = expiration;
+        this.expiration = expirationHours;
     }
 
+    /**
+     * Metodo para generar un token JWT para un usuario dado.
+     * @param usuario - Se proporciona un usuario
+     * @return Devuelve un token JWT firmado que contiene el email del usuario como sujeto y reclamos adicionales.
+     */
     public String generateToken(Usuario usuario) {
         Instant ahora = Instant.now();
         Instant expiracion = ahora.plus(expiration, ChronoUnit.HOURS);
@@ -43,6 +55,11 @@ public class JwtTokenProviderAdapter implements TokenProviderPort {
                 .signWith(secretKey).compact();
     }
 
+    /**
+     * Metodo para validar un token JWT dado.
+     * @param token - Token proporcionado por el bearer
+     * @return true si el token es válido, false en caso contrario.
+     */
     public boolean validateToken(String token) {
         try {
             Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
@@ -52,6 +69,11 @@ public class JwtTokenProviderAdapter implements TokenProviderPort {
         }
     }
 
+    /**
+     * Metodo para extraer el correo de la firma del token
+     * @param token - Token proporcionado por el bearer
+     * @return El correo del usuario si el token es válido, null en caso contrario.
+     */
     public String extractEmail(String token) {
         Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
         return claims.getSubject();
