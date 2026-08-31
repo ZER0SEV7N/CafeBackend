@@ -30,7 +30,7 @@ public class ObtenerTiendasUseCaseImpl implements ObtenerTiendasUseCase {
     /**
      * Obtener la tienda por ciudad
      * @param ciudad - Ciudad a buscar
-     * @return las tiendas por las ciudad
+     * @return una lista de tiendas dependiendo de la ciudad
      */
     @Transactional(readOnly = true)
     public List<Cafeteria> getTiendasByCiudad(String ciudad){
@@ -41,8 +41,8 @@ public class ObtenerTiendasUseCaseImpl implements ObtenerTiendasUseCase {
     }
 
     /**
-     * Obtiene las tiendas mas elegidas.
-     * @return Lista de cafeterias mas elegidas.
+     * Obtiene las tiendas más elegidas.
+     * @return Lista de cafeterias más elegidas.
      */
     @Transactional(readOnly = true)
     public List<Cafeteria> getFrequentlyChosenTiendas() {

@@ -1,6 +1,6 @@
-package com.cavosh.cafebackend.auth.infrastructure.adapter.out.security;
+package com.cavosh.cafebackend.global.infrastructure.config;
 
-import com.cavosh.cafebackend.auth.domain.port.out.PasswordEncoderPort;
+import com.cavosh.cafebackend.auth.infrastructure.adapter.out.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,14 +28,16 @@ public class SecurityConfig {
      * Se desactiva CSRF, se establece la política de creación de sesiones como sin estado, y se permiten ciertas rutas sin autenticación.
      * @param http - HttpSecurity para configurar la seguridad de la aplicación
      * @return retorna un objeto SecurityFilterChain que representa la cadena de filtros de seguridad configurada
-     * @throws Exception Puede arrojar un excepción si ocurre un error durante la configuración de la seguridad
+     * @throws Exception Puede arrojar una excepción si ocurre un error durante la configuración de la seguridad
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/productos/**").permitAll()
+                    .requestMatchers("/api/tienda/**", "/api/stores/**").permitAll()
                     .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             )
