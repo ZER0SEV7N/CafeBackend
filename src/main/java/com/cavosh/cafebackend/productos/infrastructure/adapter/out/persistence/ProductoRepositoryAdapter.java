@@ -45,7 +45,7 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
 
     /**
      * Obtener productos por ID de categoría
-     * @param categoriaId - ID de la categoría
+     * @param categoriaId - Id de la categoría
      * @return una lista de productos que pertenecen a la categoría y están activos
      */
     public List<Producto> findByCategoriaId(Integer categoriaId) {

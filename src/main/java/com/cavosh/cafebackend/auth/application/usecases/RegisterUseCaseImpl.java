@@ -18,7 +18,7 @@ public class RegisterUseCaseImpl implements RegisterUseCase {
     private final PasswordEncoderPort passwordEncoder;
 
     @Transactional
-    public Usuario registrar(RegistrarCommand command) {
+    public Usuario register(RegisterCommand command) {
         //Validar la contraseñas
         if(!command.password().equals(command.confirmPassword()))
             throw new BusinessRuleException("Las contraseñas ingresadas no coinciden");
