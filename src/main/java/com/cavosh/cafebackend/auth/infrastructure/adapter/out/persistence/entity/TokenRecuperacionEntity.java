@@ -6,12 +6,19 @@ import lombok.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tokens_recuperacion")
+@Table(name = "tokens_recuperacion", indexes = {
+        @Index(name = "idx_tokens_recuperacion_token", columnList = "token", unique = true)
+})
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+/**
+ * Entidad para los tokens de recuperacion
+ * Tiene un índice asignado para una busqueda más rapida
+ */
 public class TokenRecuperacionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

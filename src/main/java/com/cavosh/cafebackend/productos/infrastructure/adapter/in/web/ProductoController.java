@@ -2,36 +2,40 @@ package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web;
 
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
 import com.cavosh.cafebackend.productos.domain.model.Producto;
-import com.cavosh.cafebackend.productos.domain.ports.in.ObtenerProductosUseCase;
+import com.cavosh.cafebackend.productos.domain.ports.in.GetProductosUseCase;
+import com.cavosh.cafebackend.productos.domain.ports.in.ManageProductUseCase;
 import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.doc.ProductoApi;
-import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.CategoriaResponse;
-import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.ProductoDetalleResponse;
-import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.ProductoResumenResponse;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * Controlador REST para manejar las solicitudes relacionadas con los productos y categorías.
- * Endpoints:
+ * Endpoints de consultas:
  * - GET /api/productos/categorias: Obtiene todas las categorías activas.
  * - GET /api/productos: Lista todos los productos activos.
  * - GET /api/productos/categoria/{categoriaId}: Filtra productos por categoría.
  * - GET /api/productos/nuevos: Obtiene productos nuevos (New in).
  * - GET /api/productos/frecuentes: Obtiene productos frecuentes (Frequently ordered).
  * - GET /api/productos/{id}: Obtiene el detalle completo de un producto por su ID.
+ * Endpoints administrativos:
+ * - Post /api/productos:
  */
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
 public class ProductoController implements ProductoApi {
 
-    private final ObtenerProductosUseCase obtenerProductosUseCase;
+    private final GetProductosUseCase getProductosUseCase;
+    private final ManageProductUseCase manageProductUseCase;
+
+    // --- Consultas Públicas ---
 
     /**
      * Endpoint para obtener las categorias
@@ -40,7 +44,7 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping("/categorias")
     public ResponseEntity<ResponseGlobal<List<CategoriaResponse>>> getCategorias() {
-        List<CategoriaResponse> response = obtenerProductosUseCase.getCategorias()
+        List<CategoriaResponse> response = getProductosUseCase.getCategorias()
                 .stream()
                 .map(CategoriaResponse::from)
                 .toList();
@@ -55,7 +59,7 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping
     public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getAllProductos() {
-        List<ProductoResumenResponse> response = obtenerProductosUseCase.getAllActivoProductos()
+        List<ProductoResumenResponse> response = getProductosUseCase.getAllActivoProductos()
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
@@ -71,7 +75,7 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping("/categoria/{categoriaId}")
     public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosPorCategoria(@PathVariable Integer categoriaId) {
-        List<ProductoResumenResponse> response = obtenerProductosUseCase.getProductosByCategoria(categoriaId)
+        List<ProductoResumenResponse> response = getProductosUseCase.getProductosByCategoria(categoriaId)
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
@@ -86,7 +90,7 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping("/nuevos")
     public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosNuevos() {
-        List<ProductoResumenResponse> response = obtenerProductosUseCase.getNuevoInProductos()
+        List<ProductoResumenResponse> response = getProductosUseCase.getNuevoInProductos()
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
@@ -102,7 +106,7 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping("/frecuentes")
     public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosFrecuentes() {
-        List<ProductoResumenResponse> response = obtenerProductosUseCase.getFrequenciaOrdernadosProductos()
+        List<ProductoResumenResponse> response = getProductosUseCase.getFrequenciaOrdernadosProductos()
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
@@ -118,9 +122,76 @@ public class ProductoController implements ProductoApi {
      */
     @GetMapping("/{id}")
     public ResponseEntity<ResponseGlobal<ProductoDetalleResponse>> getProductoPorId(@PathVariable Integer id) {
-        Producto producto = obtenerProductosUseCase.getProductoById(id);
+        Producto producto = getProductosUseCase.getProductoById(id);
         ProductoDetalleResponse response = ProductoDetalleResponse.from(producto);
 
         return ResponseEntity.ok(ResponseGlobal.success(response, "Detalle del producto obtenido con éxito"));
+    }
+
+    // --- Endpoints Administrativos Protegidos ---
+
+    /**
+     * Endpoint para crear un nuevo producto
+     * @POST /api/productos
+     * @param request - Datos del producto a crear
+     * @return ResponseEntity con el detalle del producto creado
+     */
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResponseGlobal<ProductoDetalleResponse>> saveProducto(@Valid @RequestBody CrearProductoRequest request) {
+        var command = new ManageProductUseCase.SaveProductoCommand(
+                request.categoriaId(),
+                request.nombre(),
+                request.descripcion(),
+                request.imagenUrl(),
+                request.precioBase(),
+                request.nuevo(),
+                request.frecuente(),
+                request.escalaIds(),
+                request.grupoPersonalizacionIds()
+        );
+        Producto creado = manageProductUseCase.saveProducto(command);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ResponseGlobal.success(HttpStatus.CREATED.value(), ProductoDetalleResponse.from(creado), "Producto creado con éxito"));
+    }
+
+    /**
+     * Endpoint para actualizar un producto existente
+     * @PUT /api/productos/{id}
+     * @param id - Id del producto
+     * @param request - Datos del producto a actualizar
+     * @return ResponseEntity con el detalle del producto actualizado
+     */
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResponseGlobal<ProductoDetalleResponse>> updateProducto(@PathVariable Integer id, @Valid @RequestBody ActualizarProductoRequest request) {
+        var command = new ManageProductUseCase.UpdateProductoCommand(
+                request.categoriaId(),
+                request.nombre(),
+                request.descripcion(),
+                request.imagenUrl(),
+                request.precioBase(),
+                request.nuevo(),
+                request.frecuente(),
+                request.activo(),
+                request.escalaIds(),
+                request.grupoPersonalizacionIds()
+        );
+        Producto actualizado = manageProductUseCase.updateProducto(id, command);
+        return ResponseEntity.ok(ResponseGlobal.success(ProductoDetalleResponse.from(actualizado), "Producto actualizado con éxito"));
+    }
+
+    /**
+     * Endpoint para cambiar el estado de un producto
+     * @PATCH /api/productos/{id}/estado
+     * @param id - Id del producto
+     * @param activo - Nuevo estado del producto
+     * @return ResponseEntity con el resultado de la operación
+     */
+    @PatchMapping("/{id}/estado")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResponseGlobal<Void>> changeState(@PathVariable Integer id, @RequestParam boolean activo) {
+        manageProductUseCase.changeState(id, activo);
+        return ResponseEntity.ok(ResponseGlobal.success(null, "Estado del producto modificado con éxito"));
     }
 }

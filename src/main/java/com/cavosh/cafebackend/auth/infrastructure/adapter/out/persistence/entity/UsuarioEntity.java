@@ -19,6 +19,7 @@ import java.time.Instant;
 
 /**
  * Entidad de usuario
+ * para el manejo de las columnas en postgresql
  */
 public class UsuarioEntity {
 

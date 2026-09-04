@@ -3,7 +3,7 @@ import com.cavosh.cafebackend.productos.domain.model.Categoria;
 import com.cavosh.cafebackend.productos.domain.model.Producto;
 
 import java.util.List;
-public interface ObtenerProductosUseCase {
+public interface GetProductosUseCase {
     List<Producto> getAllActivoProductos();
     List<Producto> getProductosByCategoria(Integer categoryId);
     List<Producto> getNuevoInProductos();

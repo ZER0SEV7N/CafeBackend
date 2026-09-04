@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProviderPort tokenProviderPort;
     private final UsuarioRepositoryPort usuarioRepositoryPort;
 
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    /**
+     * Metodo para filtrar internamente en cada solicitud HTTP entrante.
+     * @param request - Solicitud HTTP entrante
+     * @param response - Respuesta del servidor
+     * @param filterChain - Cadena de filtros para continuar con el procesamiento de la solicitud
+     * @throws ServletException - Excepcion por
+     * @throws IOException
+     */
+    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
 
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {

@@ -46,7 +46,7 @@ CREATE TABLE usuarios (
     password VARCHAR(255) NULL,
     rol rol_usuario DEFAULT 'CLIENTE',
     proveedor proveedor_auth DEFAULT 'LOCAL',
-    puntosRecompensa INT DEFAULT 0,
+    puntos_Recompensa INT DEFAULT 0,
     activo BOOLEAN DEFAULT TRUE,
     created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -161,7 +161,7 @@ CREATE TABLE favoritos (
 -- Tabla de cupones
 CREATE TABLE cupones (
     id SERIAL PRIMARY KEY,
-    codigo VARCHAR(50) NOT NULL UNIQUE,
+    codigo VARCHAR(50) UNIQUE,
     porcentaje_descuento NUMERIC(5, 2) DEFAULT 0.00,
     monto_descuento_fijo NUMERIC(10, 2) DEFAULT 0.00,
     fecha_expiracion TIMESTAMPTZ,
@@ -208,17 +208,17 @@ CREATE TABLE detalle_opciones_seleccionadas (
 );
 
 -- Índice para la busqueda de opciones seleccionadas
-CREATE INDEX IF NOT EXISTS idx_detalle_opciones_seleccionadas_detalle_pedido ON detalle_opciones_seleccionadas(detalle_pedido_id);
+CREATE INDEX idx_detalle_opciones_seleccionadas_detalle_pedido ON detalle_opciones_seleccionadas(detalle_pedido_id);
 
 -- Tabla para los tokens de recuperacion de contraseñas
 CREATE TABLE tokens_recuperacion (
     id SERIAL PRIMARY KEY,
     usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
-    token VARCHAR(100) NOT NULL UNIQUE,
+    token VARCHAR(100)  UNIQUE,
     expiracion TIMESTAMPTZ NOT NULL,
-    usado BOOLEAN NOT NULL DEFAULT FALSE,
+    usado BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Índice para la busqueda de tokens
-CREATE INDEX IF NOT EXISTS idx_tokens_recuperacion_token ON tokens_recuperacion(token);
+CREATE INDEX idx_tokens_recuperacion_token ON tokens_recuperacion(token);

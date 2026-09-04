@@ -12,7 +12,9 @@ import java.util.List;
  * Entidad de producto
  */
 @Entity
-@Table(name = "producto")
+@Table(name = "producto", indexes = {
+        @Index(name = "idx_producto_categoria", columnList = "categoria_id"),
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,10 +42,10 @@ public class ProductoEntity {
     private BigDecimal precioBase;
 
     @Column(name = "nuevo", nullable = false)
-    private boolean esNuevo;
+    private boolean nuevo;
 
     @Column(name = "frecuente", nullable = false)
-    private boolean esFrecuente;
+    private boolean frecuente;
 
     @Column(nullable = false)
     private boolean activo;

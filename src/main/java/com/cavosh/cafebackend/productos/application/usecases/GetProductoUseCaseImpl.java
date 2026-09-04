@@ -3,7 +3,7 @@ package com.cavosh.cafebackend.productos.application.usecases;
 import com.cavosh.cafebackend.global.domain.exception.ResourceNotFoundException;
 import com.cavosh.cafebackend.productos.domain.model.Categoria;
 import com.cavosh.cafebackend.productos.domain.model.Producto;
-import com.cavosh.cafebackend.productos.domain.ports.in.ObtenerProductosUseCase;
+import com.cavosh.cafebackend.productos.domain.ports.in.GetProductosUseCase;
 import com.cavosh.cafebackend.productos.domain.ports.out.ProductoRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
+ * Implementacion del caso de uso para obtener los productos
+ * Tiene los metodos de filtrado
  */
 @Service
 @RequiredArgsConstructor
-public class ObtenerProductoUseCaseImpl implements ObtenerProductosUseCase {
+public class GetProductoUseCaseImpl implements GetProductosUseCase {
 
     private final ProductoRepositoryPort productoRepository;
 
