@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.time.LocalTime;
 
 @Entity
-@Table(name= "cafeteria")
+@Table(name= "cafeterias")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,6 +47,6 @@ public class TiendaEntity {
     @Column(nullable = false)
     private boolean activo;
 
-    @Column(name="createdAt", nullable = false, updatable = false)
+    @Column(name="created_at", nullable = false, updatable = false)
     private Instant createdAt;
 }

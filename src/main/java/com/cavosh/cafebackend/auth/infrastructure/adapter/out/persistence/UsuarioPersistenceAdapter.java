@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @Component
 @RequiredArgsConstructor
-public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
+public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper mapper;
 

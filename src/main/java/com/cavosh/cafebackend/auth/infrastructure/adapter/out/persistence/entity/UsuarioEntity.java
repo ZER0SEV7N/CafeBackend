@@ -8,7 +8,7 @@ import lombok.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "usuario", indexes = {
+@Table(name = "usuarios", indexes = {
     @Index(name = "idx_usuario_email", columnList = "correo", unique = true)
 })
 @Getter
@@ -26,7 +26,7 @@ public class UsuarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "fullName", nullable = false, length = 120)
+    @Column(name = "fullname", nullable = false, length = 120)
     private String fullName;
 
     @Column(name = "email", unique = true, length = 100)
@@ -43,15 +43,15 @@ public class UsuarioEntity {
     @Column(nullable = false, length = 30)
     private AuthProveedor proveedor;
 
-    @Column(name ="puntosRecompensa", nullable = false)
+    @Column(name ="puntos_recompensa", nullable = false)
     private Integer puntosRecompensa;
 
     @Column(nullable = true)
     private boolean activo;
 
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "updatedAt", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private Instant updateAt;
 }

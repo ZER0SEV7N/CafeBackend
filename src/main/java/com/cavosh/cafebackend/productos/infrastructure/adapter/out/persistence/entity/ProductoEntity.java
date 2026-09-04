@@ -39,10 +39,10 @@ public class ProductoEntity {
     @Column(name = "precio_base", nullable = false, precision = 10, scale = 2)
     private BigDecimal precioBase;
 
-    @Column(name = "es_nuevo", nullable = false)
+    @Column(name = "nuevo", nullable = false)
     private boolean esNuevo;
 
-    @Column(name = "es_frecuente", nullable = false)
+    @Column(name = "frecuente", nullable = false)
     private boolean esFrecuente;
 
     @Column(nullable = false)
@@ -68,9 +68,9 @@ public class ProductoEntity {
     @Builder.Default
     private List<GrupoPersonalizacionEntity> gruposPersonalizacion = new ArrayList<>();
 
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "updatedAt", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 }

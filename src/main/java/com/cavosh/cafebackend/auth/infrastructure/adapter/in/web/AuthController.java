@@ -2,7 +2,11 @@ package com.cavosh.cafebackend.auth.infrastructure.adapter.in.web;
 
 import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.auth.domain.port.in.LoginUseCase;
+import com.cavosh.cafebackend.auth.domain.port.in.PasswordRecoveryUseCase;
 import com.cavosh.cafebackend.auth.domain.port.in.RegisterUseCase;
+
+import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.ForgotPasswordRequest;
+import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.ResetPasswordRequest;
 import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.AuthResponse;
 import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.LoginRequest;
 import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.RegisterRequest;
@@ -29,12 +33,13 @@ public class AuthController {
 
     private final RegisterUseCase registerUseCase;
     private final LoginUseCase loginUseCase;
+    private final PasswordRecoveryUseCase passwordRecoveryUseCase;
 
     /**
      * EndPoint para registrar un nuevo cliente
-     * - Post /api/auth/register
+     * @Post /api/auth/register
      * - Recibe un objeto RegisterRequest con los datos del usuario a registrar
-     * @param request : dto con los datos del usuario a registrar
+     * @param request : dto. con los datos del usuario a registrar
      * @return ResponseEntity con el estado de la operación y el objeto AuthResponse con los datos del usuario registrado y el token JWT
      */
     @PostMapping("/registrar")
@@ -58,9 +63,9 @@ public class AuthController {
 
     /**
      * EndPoint para iniciar sesión
-     * - Post /api/auth/login
+     * @Post /api/auth/login
      * - Recibe un objeto LoginRequest con los datos del usuario para iniciar sesión
-     * @param request : dto con los datos del usuario para iniciar sesión
+     * @param request : dto. con los datos del usuario para iniciar sesión
      * @return ResponseEntity con el estado de la operación y el objeto AuthResponse con los datos del usuario autenticado y el token JWT
      */
     @PostMapping("/login")
@@ -71,5 +76,37 @@ public class AuthController {
         AuthResponse authResponse = AuthResponse.from(loginResult.token(), loginResult.usuario());
 
         return ResponseEntity.ok(ResponseGlobal.success(authResponse, "Inicio de sesión exitoso"));
+    }
+
+    /**
+     * Endpoint para enviar la solicitud de recuperacion de contraseña
+     * @Post /api/auth/forgot-password
+     * @param request - dto. con el email del usuario que solicita la recuperación de contraseña
+     * @return ResponseEntity con el estado de la operación
+     */
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ResponseGlobal<Void>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        passwordRecoveryUseCase.solicitarRecuperacion(
+                new PasswordRecoveryUseCase.SolicitarRecuperacionCommand(request.email())
+        );
+        return ResponseEntity.ok(ResponseGlobal.success(null, "Si el correo existe, se ha enviado un token de recuperación."));
+    }
+
+    /**
+     * Endpoint para restablecer la contraseña
+     * @Post /api/auth/reset-password
+     * @param request - dto. con el token y la nueva contraseña
+     * @return ResponseEntity con el estado de la operación
+     */
+    @PostMapping("/reset-password")
+    public ResponseEntity<ResponseGlobal<Void>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        passwordRecoveryUseCase.restablecerPassword(
+                new PasswordRecoveryUseCase.RestablecerPasswordCommand(
+                        request.token(),
+                        request.newPassword(),
+                        request.confirmPassword()
+                )
+        );
+        return ResponseEntity.ok(ResponseGlobal.success(null, "Contraseña actualizada exitosa"));
     }
 }
