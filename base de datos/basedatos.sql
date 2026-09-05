@@ -114,7 +114,7 @@ CREATE TABLE opciones_personalizacion (
     id SERIAL PRIMARY KEY,
     grupo_id INT NOT NULL REFERENCES grupo_personalizacion(id) ON DELETE CASCADE,
     nombre VARCHAR(100) NOT NULL,             -- 'Full-fat milk', 'Oat milk (+$0.7)'
-    recargo_precio NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
+    recargo_precio NUMERIC(10, 2) DEFAULT 0.00,
     por_defecto BOOLEAN NOT NULL DEFAULT FALSE
 );
 

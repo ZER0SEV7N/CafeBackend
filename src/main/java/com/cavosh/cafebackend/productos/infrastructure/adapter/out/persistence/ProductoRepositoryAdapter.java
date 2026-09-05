@@ -102,7 +102,7 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
      * @return
      */
     public boolean existsCategoriaById(Integer categoriaId) {
-        return !categoriaRepository.existsById(categoriaId);
+        return categoriaRepository.existsById(categoriaId);
     }
 
     /**
@@ -146,8 +146,8 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
      */
     public void changeState(Integer id, boolean activo) {
         int filasAfectadas = productoRepository.updateActivoById(id, activo);
-        if (filasAfectadas == 0) {
+        if (filasAfectadas == 0)
             throw new ResourceNotFoundException("Producto no encontrado con ID: " + id);
-        }
+
     }
 }

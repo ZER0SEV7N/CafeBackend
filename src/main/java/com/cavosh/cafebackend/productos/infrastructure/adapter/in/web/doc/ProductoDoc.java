@@ -2,6 +2,10 @@ package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.doc;
 
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
 import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.*;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ActualizarProductoRequest;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.CrearProductoRequest;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ProductoDetalleResponse;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ProductoResumenResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Tag(name = "Productos", description = "Catálogo de productos, categorías y gestión administrativa")
-public interface ProductoApi {
+public interface ProductoDoc {
 
     // --- Consultas públicas ---
 

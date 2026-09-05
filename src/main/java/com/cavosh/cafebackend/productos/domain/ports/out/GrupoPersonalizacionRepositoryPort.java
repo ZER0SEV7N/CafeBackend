@@ -1,0 +1,13 @@
+package com.cavosh.cafebackend.productos.domain.ports.out;
+
+import com.cavosh.cafebackend.productos.domain.model.GrupoPersonalizacion;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface GrupoPersonalizacionRepositoryPort {
+    List<GrupoPersonalizacion> findAll();
+    Optional<GrupoPersonalizacion> findById(Integer id);
+    boolean existsByNombreGrupoIgnoreCase(String nombreGrupo);
+    GrupoPersonalizacion save(GrupoPersonalizacion grupo);
+}

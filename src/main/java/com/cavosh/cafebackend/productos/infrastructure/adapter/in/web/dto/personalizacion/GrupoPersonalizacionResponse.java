@@ -1,6 +1,7 @@
-package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto;
+package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.personalizacion;
 
 import com.cavosh.cafebackend.productos.domain.model.GrupoPersonalizacion;
+
 import java.util.List;
 
 public record GrupoPersonalizacionResponse(

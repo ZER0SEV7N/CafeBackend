@@ -1,4 +1,4 @@
-package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto;
+package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.escala;
 
 import com.cavosh.cafebackend.productos.domain.model.Escala;
 import java.math.BigDecimal;

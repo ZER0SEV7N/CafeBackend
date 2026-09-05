@@ -1,6 +1,9 @@
-package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto;
+package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos;
 
 import com.cavosh.cafebackend.productos.domain.model.Producto;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.personalizacion.GrupoPersonalizacionResponse;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.escala.EscalaResponse;
+
 import java.math.BigDecimal;
 import java.util.List;
 

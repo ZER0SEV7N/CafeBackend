@@ -1,4 +1,4 @@
-package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto;
+package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.personalizacion;
 
 import com.cavosh.cafebackend.productos.domain.model.OpcionPersonalizacion;
 import java.math.BigDecimal;

@@ -4,8 +4,12 @@ import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
 import com.cavosh.cafebackend.productos.domain.model.Producto;
 import com.cavosh.cafebackend.productos.domain.ports.in.GetProductosUseCase;
 import com.cavosh.cafebackend.productos.domain.ports.in.ManageProductUseCase;
-import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.doc.ProductoApi;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.doc.ProductoDoc;
 import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.*;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ActualizarProductoRequest;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.CrearProductoRequest;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ProductoDetalleResponse;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ProductoResumenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +29,14 @@ import java.util.List;
  * - GET /api/productos/frecuentes: Obtiene productos frecuentes (Frequently ordered).
  * - GET /api/productos/{id}: Obtiene el detalle completo de un producto por su ID.
  * Endpoints administrativos:
- * - Post /api/productos:
+ * - POST /api/productos: Crea un nuevo producto.
+ * - PUT /api/productos/{id}: Actualiza un producto existente.
+ * - PATCH /api/productos/{id}/estado: Cambia el estado de activo/inactivo de un producto.
  */
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
-public class ProductoController implements ProductoApi {
+public class ProductoController implements ProductoDoc {
 
     private final GetProductosUseCase getProductosUseCase;
     private final ManageProductUseCase manageProductUseCase;
