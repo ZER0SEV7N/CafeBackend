@@ -1,7 +1,7 @@
 package com.cavosh.cafebackend.tienda.application.usecases;
 
 import com.cavosh.cafebackend.tienda.domain.model.Cafeteria;
-import com.cavosh.cafebackend.tienda.domain.port.in.ObtenerTiendasUseCase;
+import com.cavosh.cafebackend.tienda.domain.port.in.GetTiendasUseCase;
 import com.cavosh.cafebackend.tienda.domain.port.out.TiendaRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class ObtenerTiendasUseCaseImpl implements ObtenerTiendasUseCase {
+public class GetTiendasUseCaseImpl implements GetTiendasUseCase {
 
     private final TiendaRepositoryPort tiendaRepository;
 

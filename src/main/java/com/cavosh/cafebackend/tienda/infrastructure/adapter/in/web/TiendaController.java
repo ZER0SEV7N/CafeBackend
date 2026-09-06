@@ -1,7 +1,7 @@
 package com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web;
 
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
-import com.cavosh.cafebackend.tienda.domain.port.in.ObtenerTiendasUseCase;
+import com.cavosh.cafebackend.tienda.domain.port.in.GetTiendasUseCase;
 import com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web.dto.TiendaResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TiendaController {
 
-    private final ObtenerTiendasUseCase obtenerTiendasUseCase;
+    private final GetTiendasUseCase getTiendasUseCase;
 
     /**
      * Endpoint para obtener todas las tiendas activas.
@@ -33,7 +33,7 @@ public class TiendaController {
      */
     @GetMapping()
     public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getAllTiendas() {
-        List<TiendaResponse> tiendas = obtenerTiendasUseCase.getAllActiveTiendas().stream()
+        List<TiendaResponse> tiendas = getTiendasUseCase.getAllActiveTiendas().stream()
                 .map(TiendaResponse::from)
                 .toList();
 
@@ -48,7 +48,7 @@ public class TiendaController {
      */
     @GetMapping("/buscar")
     public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasByCiudad(String ciudad) {
-        List<TiendaResponse> tiendas = obtenerTiendasUseCase.getTiendasByCiudad(ciudad).stream()
+        List<TiendaResponse> tiendas = getTiendasUseCase.getTiendasByCiudad(ciudad).stream()
                 .map(TiendaResponse::from)
                 .toList();
 
@@ -62,7 +62,7 @@ public class TiendaController {
      */
     @GetMapping("/frecuentes")
     public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getFrequentlyChosenTiendas() {
-        List<TiendaResponse> tiendas = obtenerTiendasUseCase.getFrequentlyChosenTiendas().stream()
+        List<TiendaResponse> tiendas = getTiendasUseCase.getFrequentlyChosenTiendas().stream()
                 .map(TiendaResponse::from)
                 .toList();
 

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @Tag(name = "Stores", description = "Endpoints para consulta y selección de cafeterías / sedes")
-public interface TiendaAPI {
+public interface TiendaDoc {
 
     @Operation(summary = "Obtener todas las cafeterías activas", description = "Retorna la lista de todas las sedes operativas.")
     @ApiResponse(responseCode = "200", description = "Lista de cafeterías obtenida correctamente")
