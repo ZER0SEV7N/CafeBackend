@@ -1,13 +1,14 @@
 package com.cavosh.cafebackend.global.infrastructure.config;
 
 import com.cavosh.cafebackend.auth.infrastructure.adapter.out.security.JwtAuthenticationFilter;
+import com.cavosh.cafebackend.global.domain.exception.SecurityConfigurationException;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -28,11 +29,12 @@ public class SecurityConfig {
      * Se desactiva CSRF, se establece la política de creación de sesiones como sin estado, y se permiten ciertas rutas sin autenticación.
      * @param http - HttpSecurity para configurar la seguridad de la aplicación
      * @return retorna un objeto SecurityFilterChain que representa la cadena de filtros de seguridad configurada
-     * @throws Exception Puede arrojar una excepción si ocurre un error durante la configuración de la seguridad
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+    @SuppressWarnings("java:S4502")
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+        // CSRF is unnecessary because this API is stateless and authenticates with JWTs.
+        http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**").permitAll()
@@ -40,8 +42,14 @@ public class SecurityConfig {
                     .requestMatchers("/api/tienda/**", "/api/stores/**").permitAll()
                     .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
+            ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        //En caso de que se produzca un error al construir la cadena de filtros de seguridad, s
+        // e lanza una excepción personalizada SecurityConfigurationException con un mensaje y la causa del error.
+        try {
+            return http.build();
+        } catch (Exception exception) {
+            throw new SecurityConfigurationException("No se pudo configurar la cadena de filtros de seguridad", exception);
+        }
     }
 }

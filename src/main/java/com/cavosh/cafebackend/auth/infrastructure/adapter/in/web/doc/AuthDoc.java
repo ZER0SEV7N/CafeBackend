@@ -28,9 +28,7 @@ public interface AuthDoc {
     ResponseEntity<ResponseGlobal<AuthResponse>> login(LoginRequest request);
 
     @Operation(summary = "Solicitar recuperación de contraseña", description = "Envía un correo electrónico con un token si el usuario existe.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Solicitud procesada")
-    })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Solicitud procesada") })
     ResponseEntity<ResponseGlobal<Void>> forgotPassword(ForgotPasswordRequest request);
 
     @Operation(summary = "Restablecer contraseña con token", description = "Valida el token enviado por correo y actualiza la contraseña.")

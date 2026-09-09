@@ -18,7 +18,7 @@ public class ValidateCuponUseCaseImpl implements ValidateCuponUseCase {
     private final CuponRepositoryPort cuponRepository;
 
     @Transactional(readOnly = true)
-    public ValidateCuponResult validarYAplicar(String codigo, BigDecimal subtotal) {
+    public ValidateCuponResult validateAndAplicate(String codigo, BigDecimal subtotal) {
         if (codigo == null || codigo.trim().isBlank())
             throw new BusinessRuleException("Debe proporcionar un código de cupón");
 

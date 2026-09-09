@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * Proporciona endpoints para obtener y actualizar el perfil del usuario autenticado.
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/user/profile")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -27,7 +27,7 @@ public class UserController {
      * @param usuarioAuth - Tu usuario
      * @return Retorna el perfil de usuario
      */
-    @GetMapping("/profile")
+    @GetMapping
     public ResponseEntity<ResponseGlobal<UserProfileResponse>> getProfile(@AuthenticationPrincipal Usuario usuarioAuth) {
         Usuario usuario = profileUseCase.getProfile(usuarioAuth.id());
         return ResponseEntity.ok(ResponseGlobal.success(UserProfileResponse.from(usuario), "Perfil obtenido"));
@@ -39,7 +39,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @PutMapping("/profile")
+    @PutMapping
     public ResponseEntity<ResponseGlobal<UserProfileResponse>> updateProfile(
             @AuthenticationPrincipal Usuario usuarioAuth,
             @Valid @RequestBody UpdateProfileRequest request

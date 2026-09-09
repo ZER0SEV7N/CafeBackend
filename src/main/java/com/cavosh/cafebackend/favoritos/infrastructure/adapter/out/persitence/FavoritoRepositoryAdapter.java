@@ -1,6 +1,5 @@
 package com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence;
 
-import com.cavosh.cafebackend.favoritos.domain.model.Favorito;
 import com.cavosh.cafebackend.favoritos.domain.ports.out.FavoritoRepositoryPort;
 import com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence.entity.FavoritoEntity;
 import com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence.entity.FavoritoId;
@@ -26,11 +25,11 @@ public class FavoritoRepositoryAdapter implements FavoritoRepositoryPort {
     public void addFavorito(Integer usuarioId, Integer productoId) {
         ProductoEntity productoRef = productoRepository.getReferenceById(productoId);
 
-        FavoritoEntity entity = FavoritoEntity.builder()
+        favoritoRepository.save(FavoritoEntity.builder()
                 .id(new FavoritoId(usuarioId, productoId))
                 .producto(productoRef)
                 .createdAt(Instant.now())
-                .build();
+            .build());
     }
 
     public void deleteFavorito(Integer usuarioId, Integer productoId){

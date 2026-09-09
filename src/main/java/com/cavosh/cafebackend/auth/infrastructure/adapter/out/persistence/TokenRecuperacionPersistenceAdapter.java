@@ -10,12 +10,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * TokenRecuperacionPersistenceAdapter: Adapter de persistencia que implementa la interfaz TokenRecuperacionRepositoryPort para interactuar con la base de datos.
+ * Utiliza TokenRecuperacionRepository para realizar operaciones CRUD sobre la entidad TokenRecuperacion
+ */
 @Component
 @RequiredArgsConstructor
 public class TokenRecuperacionPersistenceAdapter implements TokenRecuperacionRepositoryPort {
 
-    private final TokenRecuperacionRepository Repository;
-    private final TokenMapper Mapper;
+    private final TokenRecuperacionRepository repository;
+    private final TokenMapper mapper;
 
     /**
      * Metodo para guardar en la base de datos el token de recuperacion
@@ -32,8 +36,8 @@ public class TokenRecuperacionPersistenceAdapter implements TokenRecuperacionRep
                 .createdAt(token.createdAt())
                 .build();
 
-        TokenRecuperacionEntity saved = Repository.save(entity);
-        return Mapper.toDomain(saved);
+        TokenRecuperacionEntity saved = repository.save(entity);
+        return mapper.toDomain(saved);
     }
 
     /**
@@ -42,7 +46,7 @@ public class TokenRecuperacionPersistenceAdapter implements TokenRecuperacionRep
      * @return - Token de recuperacion encontrado o vacio
      */
     public Optional<TokenRecuperacion> findByToken(String token) {
-        return Repository.findByToken(token).map(Mapper::toDomain);
+        return repository.findByToken(token).map(mapper::toDomain);
     }
 
 
@@ -51,6 +55,6 @@ public class TokenRecuperacionPersistenceAdapter implements TokenRecuperacionRep
      * @param usuarioId - id del usuario a buscar
      */
     public void invalidatePreviousTokens(Integer usuarioId) {
-        Repository.invalidarTokensActivos(usuarioId);
+        repository.invalidarTokensActivos(usuarioId);
     }
 }

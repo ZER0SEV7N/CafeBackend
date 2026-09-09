@@ -97,39 +97,38 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
     }
 
     /**
-     *
-     * @param categoriaId
-     * @return
+     * Metodo para verificar si una categoría existe por su ID
+     * @param categoriaId - ID de la categoría
+     * @return - true si la categoría existe, false en caso contrario
      */
     public boolean existsCategoriaById(Integer categoriaId) {
         return categoriaRepository.existsById(categoriaId);
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * Metodo para verificar si un producto existe por su ID
+     * @param id - ID del producto
+     * @return - true si el producto existe, false en caso contrario
      */
-    public boolean existsById(Integer id) {
-        return productoRepository.existsById(id);
-    }
+    public boolean existsById(Integer id) { return productoRepository.existsById(id); }
 
     /**
-     *
-     * @param producto
-     * @param escalaIds
-     * @param grupoPersonalizacionIds
-     * @return
+     * Método para guardar un producto junto con sus escalas y grupos de personalización asociados.
+     * @param producto - El objeto de dominio Producto que se desea guardar.
+     * @param escalaIds - Lista de IDs de escalas asociadas al producto.
+     * @param grupoPersonalizacionIds - Lista de IDs de grupos de personalización asociados al producto.
+     * @return - El objeto de dominio Producto guardado.
      */
     public Producto saveProducto(Producto producto, List<Integer> escalaIds, List<Integer> grupoPersonalizacionIds) {
         ProductoEntity entity = productoMapper.toEntity(producto);
 
-        // Carga y asociación por lotes
+        //Verificar si se proporcionaron IDs de escalas
         if (escalaIds != null && !escalaIds.isEmpty()) {
             List<EscalaEntity> escalas = escalaRepository.findAllByIdIn(escalaIds);
             entity.setEscalas(escalas);
         }
 
+        //Verificar si se proporcionaron IDs de grupos de personalización
         if (grupoPersonalizacionIds != null && !grupoPersonalizacionIds.isEmpty()) {
             List<GrupoPersonalizacionEntity> grupos = grupoPersonalizacionRepository.findAllByIdIn(grupoPersonalizacionIds);
             entity.setGruposPersonalizacion(grupos);

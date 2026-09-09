@@ -11,8 +11,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Locale;
-
+/**
+ * LoginUseCaseImpl : Clase que implementa la interfaz LoginUseCase y proporciona la funcionalidad de inicio de sesión.
+ * Esta clase se encarga de autenticar a un usuario mediante su correo electrónico y contraseña,
+ * generando un token de autenticación si las credenciales son válidas.
+ */
 @Service
 @RequiredArgsConstructor
 public class LoginUseCaseImpl implements LoginUseCase {

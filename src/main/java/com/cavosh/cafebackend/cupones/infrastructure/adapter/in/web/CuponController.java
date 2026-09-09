@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/** 
+ * Controlador REST para la gestión de cupones de descuento.
+ * Tiene el siguiente endpoint:
+ * - POST /api/cupones/validar: Valida un cupón y calcula el descuento aplicado al subtotal del carrito.
+ */
 @RestController
 @RequestMapping("/api/cupones")
 @RequiredArgsConstructor
@@ -20,7 +25,11 @@ public class CuponController implements CuponDoc {
 
     private final ValidateCuponUseCase validarCuponUseCase;
 
-    @Override
+    /** 
+     * Valida un cupón y calcula el descuento aplicado al subtotal del carrito.
+     * @param request - La solicitud con el código del cupón y el subtotal del carrito.
+     * @return La respuesta con la información del cupón validado.
+     */
     @PostMapping("/validar")
     public ResponseEntity<ResponseGlobal<CuponValidadoResponse>> validarCupon(@Valid @RequestBody ValidarCuponRequest request) {
         var resultado = validarCuponUseCase.validateAndAplicate(request.codigo(), request.subtotal());

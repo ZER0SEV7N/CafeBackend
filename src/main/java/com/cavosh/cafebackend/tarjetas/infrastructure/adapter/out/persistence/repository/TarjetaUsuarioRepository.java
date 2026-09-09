@@ -5,12 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+/**
+ * Repositorio de tarjetas de usuario:
+ * - Listar todas las tarjetas de un usuario ordenadas por predeterminada y fecha de creación
+ * - Buscar una tarjeta por su id y el id del usuario
+ * - Contar la cantidad de tarjetas de un usuario
+ * - Desmarcar todas las tarjetas como predeterminadas para un usuario
+ * - Eliminar una tarjeta por su id y el id del usuario
+ */
 public interface TarjetaUsuarioRepository extends JpaRepository<TarjetaUsuarioEntity, Integer> {
 
     List<TarjetaUsuarioEntity> findByUsuarioIdOrderByPredeterminadoDescCreatedAtDesc(Integer usuarioId);

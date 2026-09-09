@@ -4,6 +4,10 @@ import com.cavosh.cafebackend.productos.domain.model.GrupoPersonalizacion;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+/** 
+ * Interfaz que define las operaciones de gestión de grupos de personalización.
+ */
 public interface ManageGrupoPersonalizacionUseCase {
     record OpcionCommand(String nombre, BigDecimal recargoPrecio, boolean porDefecto) {}
     record CrearGrupoCommand(String nombreGrupo, boolean seleccionMultiple, boolean obligatorio, List<OpcionCommand> opciones) {}

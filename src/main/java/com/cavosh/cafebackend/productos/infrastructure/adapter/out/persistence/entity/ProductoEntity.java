@@ -12,9 +12,7 @@ import java.util.List;
  * Entidad de producto
  */
 @Entity
-@Table(name = "producto", indexes = {
-        @Index(name = "idx_producto_categoria", columnList = "categoria_id"),
-})
+@Table(name = "producto", indexes = {@Index(name = "idx_producto_categoria", columnList = "categoria_id") })
 @Getter
 @Setter
 @NoArgsConstructor

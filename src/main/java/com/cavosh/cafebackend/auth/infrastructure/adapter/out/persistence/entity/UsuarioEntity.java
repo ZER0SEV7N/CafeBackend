@@ -8,9 +8,7 @@ import lombok.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "usuarios", indexes = {
-    @Index(name = "idx_usuario_email", columnList = "correo", unique = true)
-})
+@Table(name = "usuarios", indexes = { @Index(name = "idx_usuario_email", columnList = "correo", unique = true) })
 @Getter
 @Setter
 @NoArgsConstructor

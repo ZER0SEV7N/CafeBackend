@@ -4,6 +4,7 @@ import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.auth.domain.port.in.ProfileUseCase;
 import com.cavosh.cafebackend.auth.domain.port.out.UsuarioRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.time.Instant;
 public class ProfileUseCaseImpl implements ProfileUseCase {
 
     private final UsuarioRepositoryPort usuarioRepository;
+    private final ObjectProvider<ProfileUseCase> profileUseCase;
 
     /**
      * Metodo para obtener el perfil de un usuario por su id
@@ -38,7 +40,7 @@ public class ProfileUseCaseImpl implements ProfileUseCase {
      */
     @Transactional
     public Usuario updateMyProfile(UpdateProfileCommand command) {
-        Usuario usuario = getProfile(command.usuarioId());
+        Usuario usuario = profileUseCase.getObject().getProfile(command.usuarioId());
 
         Usuario usuarioActualizado = new Usuario(
                 usuario.id(),

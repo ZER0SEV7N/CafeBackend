@@ -11,9 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementacion del caso de uso para obtener los productos
- * Tiene los metodos de filtrado
+/** Implementación del caso de uso para obtener los productos.
+ * Tiene los siguientes métodos:
+ * - getAllActivoProductos(): Obtiene todos los productos activos.
+ * - getProductosByCategoria(Integer categoriaId): Obtiene los productos por ID de categoría.
+ * - getNuevoInProductos(): Obtiene todos los productos nuevos.
+ * - getFrequenciaOrdernadosProductos(): Obtiene los productos ordenados por frecuencia de pedido.
+ * - getProductoById(Integer id): Obtiene un producto por su ID.
+ * - getCategorias(): Obtiene todas las categorías de productos.
  */
 @Service
 @RequiredArgsConstructor

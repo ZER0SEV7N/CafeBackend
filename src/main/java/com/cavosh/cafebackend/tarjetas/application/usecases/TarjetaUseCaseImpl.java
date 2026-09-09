@@ -21,7 +21,7 @@ public class TarjetaUseCaseImpl implements TarjetaUseCase {
     private final AesGcmEncryptionUtil encryptionUtil;
 
     @Transactional
-    public TarjetaUsuario registerTarjeta(RegisterTarjetaCommand command) {
+    public TarjetaUsuario registerNewTarjeta(RegisterTarjetaCommand command) {
         String numero = command.numeroTarjeta().replaceAll("\\s+","");
 
         if(numero.length() <13 || numero.length() > 19)
@@ -56,7 +56,7 @@ public class TarjetaUseCaseImpl implements TarjetaUseCase {
     }
 
     @Transactional
-    public void checkDefault(Integer usuarioId, Integer tarjetaId){
+    public void checkDefaults(Integer usuarioId, Integer tarjetaId){
         TarjetaUsuario tarjeta = tarjetaRepository.findByIdAndUsuarioId(tarjetaId, usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("La tarjeta no existe para el usuario"));
 

@@ -6,6 +6,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+/**
+ * EmailSenderAdapter: Adapter de envío de correos que implementa la interfaz EmailSenderPort.
+ * Utiliza JavaMailSender para enviar correos electrónicos. 
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

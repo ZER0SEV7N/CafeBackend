@@ -6,6 +6,7 @@ import com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web.dto.TiendaRes
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,13 +47,13 @@ public class TiendaController {
      * @param ciudad la ciudad por la que filtrar las tiendas.
      * @return lista con las tiendas de la ciudad especificada.
      */
-    @GetMapping("/buscar")
-    public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasByCiudad(String ciudad) {
+        @GetMapping("/buscar/{ciudad}")
+        public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasByCiudad(@PathVariable String ciudad) {
         List<TiendaResponse> tiendas = getTiendasUseCase.getTiendasByCiudad(ciudad).stream()
                 .map(TiendaResponse::from)
                 .toList();
 
-        return ResponseEntity.ok(ResponseGlobal.success(tiendas, "Cafeterías obtenidas con éxito"));
+        return ResponseEntity.ok(ResponseGlobal.success(tiendas, "Cafetería obtenidas con éxito"));
     }
 
     /**

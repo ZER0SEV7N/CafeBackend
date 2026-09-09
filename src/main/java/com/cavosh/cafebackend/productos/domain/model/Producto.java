@@ -4,20 +4,11 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
-/**
- *
- * @param id
- * @param categoriaId
- * @param nombre
- * @param descripcion
- * @param imagenUrl
- * @param precioBase
- * @param esNuevo
- * @param esFrecuente
- * @param activo
- * @param escalas
- * @param gruposPersonalizacion
- * @param createdAt
+/** 
+ * Representa un producto en el sistema.
+ * Contiene información sobre la categoría, nombre, descripción, imagen, precio base, estado de novedad y frecuencia, 
+ * así como las escalas y grupos de personalización asociados.
+ * Además, incluye las fechas de creación y actualización del producto.
  */
 public record Producto(
         Integer id,

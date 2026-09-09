@@ -16,7 +16,7 @@ public interface CuponDoc {
             summary = "Validar cupón promocional (Botón Apply)",
             description = "Valida si un cupón existe y está vigente, calculando el importe del descuento y el total resultante sobre el subtotal del carrito."
     )
-    @ApiResponses({
+    @ApiResponses( value ={
             @ApiResponse(responseCode = "200", description = "Cupón válido y aplicado"),
             @ApiResponse(responseCode = "400", description = "Cupón inactivo, expirado o subtotal incorrecto"),
             @ApiResponse(responseCode = "404", description = "El código de cupón no existe")

@@ -11,12 +11,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 
+/** Implementación del caso de uso para la gestión de productos.
+ * Tiene los siguientes métodos:
+ * - saveProducto(SaveProductoCommand command): Crea un nuevo producto.
+ * - updateProducto(Integer id, UpdateProductoCommand command): Actualiza un producto existente.
+ * - changeState(Integer id, boolean active): Cambia el estado de un producto.
+ */
 @Service
 @RequiredArgsConstructor
 public class ManageProductUseCaseImpl implements ManageProductUseCase {
 
     private final ProductoRepositoryPort productoRepository;
 
+    /**
+     * Crea un nuevo producto.
+     * @param command los datos para crear el producto.
+     * @return el producto creado.
+     */
     @Transactional
     public Producto saveProducto(SaveProductoCommand command) {
         if(productoRepository.existsCategoriaById(command.categoriaId()))
@@ -42,6 +53,12 @@ public class ManageProductUseCaseImpl implements ManageProductUseCase {
         return productoRepository.saveProducto(nuevo, command.escalaIds(), command.grupoPersonalizacionIds());
     }
 
+    /** 
+     * Actualiza un producto existente.
+     * @param id el ID del producto a actualizar.
+     * @param command los datos para actualizar el producto.
+     * @return el producto actualizado.
+     */
     @Transactional
     public Producto updateProducto(Integer id, UpdateProductoCommand command) {
         Producto existente = productoRepository.findById(id)
@@ -69,6 +86,11 @@ public class ManageProductUseCaseImpl implements ManageProductUseCase {
         return productoRepository.saveProducto(actualizado, command.escalaIds(), command.grupoPersonalizacionIds());
     }
 
+    /** 
+     * Cambia el estado de un producto.
+     * @param id el ID del producto.
+     * @param active el nuevo estado del producto.
+     */
     @Transactional
     public void changeState(Integer id, boolean active) {
         if (!productoRepository.existsById(id))

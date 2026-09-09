@@ -2,6 +2,7 @@ package com.cavosh.cafebackend.productos.infrastructure.adapter.out.persistence.
 import com.cavosh.cafebackend.productos.domain.model.*;
 import com.cavosh.cafebackend.productos.infrastructure.adapter.out.persistence.entity.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper del producto con todos los elementos que están relacionados con este
@@ -19,6 +20,7 @@ public interface ProductoMapper {
 
     //OpcionPersonalizacion
     OpcionPersonalizacion toDomain(OpcionPersonalizacionEntity entity);
+    @Mapping(target = "grupoId", ignore = true)
     OpcionPersonalizacionEntity toEntity(OpcionPersonalizacion domain);
 
     //GrupoPersonalizacion

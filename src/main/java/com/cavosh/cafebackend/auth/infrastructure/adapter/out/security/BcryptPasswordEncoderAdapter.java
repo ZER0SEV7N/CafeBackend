@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BcryptPasswordEncoderAdapter implements PasswordEncoderPort {
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     /**
      * Metodo para codificar una contraseña.

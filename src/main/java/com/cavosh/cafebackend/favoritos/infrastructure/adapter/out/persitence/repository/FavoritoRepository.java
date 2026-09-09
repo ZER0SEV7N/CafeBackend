@@ -1,17 +1,15 @@
 package com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence.repository;
 
 import com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence.entity.FavoritoEntity;
+import com.cavosh.cafebackend.favoritos.infrastructure.adapter.out.persitence.entity.FavoritoId;
 import com.cavosh.cafebackend.productos.infrastructure.adapter.out.persistence.entity.ProductoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
-public interface FavoritoRepository extends JpaRepository<FavoritoEntity, Integer> {
+public interface FavoritoRepository extends JpaRepository<FavoritoEntity, FavoritoId> {
 
     boolean existsByIdUsuarioIdAndIdProductoId(Integer usuarioId, Integer productoId);
 

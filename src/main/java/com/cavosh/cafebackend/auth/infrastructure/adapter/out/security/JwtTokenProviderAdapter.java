@@ -26,6 +26,7 @@ import java.util.Map;
  * La clase utiliza una clave secreta para firmar y verificar los tokens, que se inyecta a través de las propiedades de configuración de la aplicación.
  */
 @Component
+@SuppressWarnings("java:S2143")
 public class JwtTokenProviderAdapter implements TokenProviderPort {
 
     private final SecretKey secretKey;

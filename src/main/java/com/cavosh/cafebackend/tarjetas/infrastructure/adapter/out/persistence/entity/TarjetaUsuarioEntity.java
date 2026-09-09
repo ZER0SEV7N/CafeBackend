@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.time.Instant;
 
+/** 
+ * Entidad que representa una tarjeta de usuario en la base de datos.
+ */
 @Entity
 @Table(name = "tarjetas_usuario")
 @Getter

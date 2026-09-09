@@ -5,6 +5,9 @@ import com.cavosh.cafebackend.productos.domain.model.Escala;
 import java.math.BigDecimal;
 import java.util.List;
 
+/** 
+ * Interfaz que define las operaciones de gestión de escalas.
+ */
 public interface ManageEscalaUseCase {
     record SaveEscalaCommand(String nombre, Integer volumenMl, BigDecimal recargoPrecio) {}
     record UpdateEscalaCommand(String nombre, Integer volumenMl, BigDecimal recargoPrecio) {}

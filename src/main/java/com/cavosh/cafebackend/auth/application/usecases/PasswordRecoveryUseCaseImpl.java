@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+
+/**
+ * PasswordRecoveryUseCaseImpl: Clase que implementa la interfaz PasswordRecoveryUseCase y proporciona la funcionalidad de recuperación de contraseña.
+ * Esta clase se encarga de manejar la solicitud de recuperación de contraseña, generar tokens de recuperación, 
+ * enviar correos electrónicos y restablecer la contraseña del usuario.    
+ */
 @Service
 @RequiredArgsConstructor
 public class PasswordRecoveryUseCaseImpl implements PasswordRecoveryUseCase {
@@ -58,15 +64,14 @@ public class PasswordRecoveryUseCaseImpl implements PasswordRecoveryUseCase {
         if (!command.nuevaPassword().equals(command.confirmarPassword()))
             throw new BusinessRuleException("Las contraseñas no coinciden");
 
-
-        TokenRecuperacion token = tokenRepository.findByToken(command.token())
-                .orElseThrow(() -> new ResourceNotFoundException("El token de recuperación no es válido o no existe"));
+        //Buscar el token de recuperación en la base de datos
+        TokenRecuperacion token = tokenRepository.findByToken(command.token()).orElseThrow(() -> new ResourceNotFoundException("El token de recuperación no es válido o no existe"));
 
         if (!token.esValido())
             throw new BusinessRuleException("El token de recuperación ha expirado o ya fue utilizado");
 
-        Usuario usuario = usuarioRepository.findById(token.usuarioId())
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        //Buscar el usuario asociado al token
+        Usuario usuario = usuarioRepository.findById(token.usuarioId()).orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         String hash = passwordEncoder.encode(command.nuevaPassword());
 

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record RegistrarTarjetaRequest(
         @NotBlank(message = "El número de tarjeta es obligatorio")
-        @Pattern(regexp = "^[0-9]{13,19}$", message = "El número de tarjeta debe contener entre 13 y 19 dígitos numéricos")
+        @Pattern(regexp = "^\\d{13,19}$", message = "El número de tarjeta debe contener entre 13 y 19 dígitos numéricos")
         String numeroTarjeta,
 
         @NotBlank(message = "El titular de la tarjeta es obligatorio")

@@ -19,7 +19,7 @@ import java.util.List;
 public interface TarjetaDoc {
 
     @Operation(summary = "Listar tarjetas guardadas", description = "Retorna los métodos de pago enmascarados del usuario autenticado.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tarjetas obtenidas exitosamente"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
@@ -28,7 +28,7 @@ public interface TarjetaDoc {
     );
 
     @Operation(summary = "Registrar nueva tarjeta", description = "Cifra el número con AES-256-GCM y almacena la tarjeta para el checkout.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Tarjeta registrada exitosamente"),
             @ApiResponse(responseCode = "400", description = "Datos de tarjeta no válidos"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
@@ -39,7 +39,7 @@ public interface TarjetaDoc {
     );
 
     @Operation(summary = "Establecer tarjeta predeterminada", description = "Marca la tarjeta seleccionada como principal para cobros automáticos.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tarjeta marcada como predeterminada"),
             @ApiResponse(responseCode = "401", description = "No autenticado"),
             @ApiResponse(responseCode = "404", description = "Tarjeta no encontrada")
@@ -50,7 +50,7 @@ public interface TarjetaDoc {
     );
 
     @Operation(summary = "Eliminar tarjeta", description = "Remueve la tarjeta bancaria de la cuenta del usuario.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tarjeta eliminada exitosamente"),
             @ApiResponse(responseCode = "401", description = "No autenticado"),
             @ApiResponse(responseCode = "404", description = "Tarjeta no encontrada")

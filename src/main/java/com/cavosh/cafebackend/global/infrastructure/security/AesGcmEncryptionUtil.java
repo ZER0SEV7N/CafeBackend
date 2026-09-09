@@ -25,6 +25,7 @@ public class AesGcmEncryptionUtil {
 
     //Clave secreta para la encriptación AES-GCM, que se inyecta a través del constructor
     private final SecretKey secretKey;
+    private final SecureRandom secureRandom = new SecureRandom();
 
     //Constructor
     public AesGcmEncryptionUtil(@Value("${app.security.card-secret-key:0123456789abcdef0123456789abcdef}") String secret) {
@@ -43,7 +44,7 @@ public class AesGcmEncryptionUtil {
     public String encrypt(String rawCardNumber){
         try {
             byte[] iv = new byte[IV_LENGTH_BYTE];
-            new SecureRandom().nextBytes(iv);
+            secureRandom.nextBytes(iv);
 
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, new javax.crypto.spec.GCMParameterSpec(TAG_LENGTH_BIT, iv));

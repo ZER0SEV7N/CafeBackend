@@ -4,11 +4,13 @@ import com.cavosh.cafebackend.auth.infrastructure.adapter.out.persistence.entity
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+/**
+ * TokenRecuperacionRepository : Interfaz que define los métodos de acceso a la base de datos para la entidad TokenRecuperacionEntity.
+ * Extiende JpaRepository para obtener los métodos CRUD básicos.
+ */
 public interface TokenRecuperacionRepository extends JpaRepository<TokenRecuperacionEntity, Integer> {
 
     Optional<TokenRecuperacionEntity> findByToken(String token);

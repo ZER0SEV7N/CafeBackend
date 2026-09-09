@@ -18,7 +18,7 @@ import java.util.List;
 public interface FavoritoDoc {
 
     @Operation(summary = "Listar favoritos del usuario", description = "Retorna todos los productos que el cliente autenticado ha marcado con el corazón.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de favoritos obtenida exitosamente"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
@@ -27,7 +27,7 @@ public interface FavoritoDoc {
     );
 
     @Operation(summary = "Verificar si un producto es favorito", description = "Retorna true o false para determinar el estado visual del corazón.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Estado verificado correctamente"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
@@ -37,7 +37,7 @@ public interface FavoritoDoc {
     );
 
     @Operation(summary = "Marcar producto como favorito", description = "Agrega el producto a la lista de favoritos del cliente.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Producto agregado a favoritos"),
             @ApiResponse(responseCode = "401", description = "No autenticado"),
             @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
@@ -49,7 +49,7 @@ public interface FavoritoDoc {
     );
 
     @Operation(summary = "Quitar producto de favoritos", description = "Remueve el producto de la lista del cliente.")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Producto removido de favoritos"),
             @ApiResponse(responseCode = "401", description = "No autenticado"),
             @ApiResponse(responseCode = "404", description = "El producto no estaba en la lista de favoritos")
