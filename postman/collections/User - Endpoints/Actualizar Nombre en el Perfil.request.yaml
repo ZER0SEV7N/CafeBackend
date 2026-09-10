@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/user/profile"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"fullName\": \"Laura Vat\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Actualizar Nombre en el Perfil.resources/examples
+order: 3733150008441962

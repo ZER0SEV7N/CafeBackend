@@ -48,8 +48,8 @@ CREATE TABLE usuarios (
     proveedor proveedor_auth DEFAULT 'LOCAL',
     puntos_Recompensa INT DEFAULT 0,
     activo BOOLEAN DEFAULT TRUE,
-    created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_At TIMESTAMPTZ DEFAULT NOW(),
+    updated_At TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_usuarios_email ON usuarios(email);
@@ -63,7 +63,7 @@ CREATE TABLE tarjetas_usuario (
     numero_encriptado VARCHAR(255),       -- Cifrado con AES-256-GCM + IV en Base64
     titular VARCHAR(120) NOT NULL,
     predeterminado BOOLEAN DEFAULT FALSE,
-    created_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_At TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- TABLA de cafeterias
@@ -78,7 +78,7 @@ CREATE TABLE cafeterias (
     hora_cierre TIME NOT NULL,
     frecuente BOOLEAN DEFAULT FALSE,
     activo BOOLEAN DEFAULT TRUE,
-    created_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_At TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Index para buscar más rapido la cafeteria
@@ -115,7 +115,7 @@ CREATE TABLE opciones_personalizacion (
     grupo_id INT NOT NULL REFERENCES grupo_personalizacion(id) ON DELETE CASCADE,
     nombre VARCHAR(100) NOT NULL,             -- 'Full-fat milk', 'Oat milk (+$0.7)'
     recargo_precio NUMERIC(10, 2) DEFAULT 0.00,
-    por_defecto BOOLEAN NOT NULL DEFAULT FALSE
+    por_defecto BOOLEAN DEFAULT FALSE
 );
 
 -- Tabla de productos
@@ -129,8 +129,8 @@ CREATE TABLE producto (
     nuevo BOOLEAN DEFAULT FALSE,
     frecuente BOOLEAN DEFAULT FALSE,
     activo BOOLEAN DEFAULT TRUE,
-    created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_At TIMESTAMPTZ DEFAULT NOW(),
+    updated_At TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Index para buscar más rápido los productos por categoria
@@ -183,7 +183,7 @@ CREATE TABLE pedidos (
      subtotal NUMERIC(10, 2) NOT NULL,
      descuento NUMERIC(10, 2) DEFAULT 0.00,
      total NUMERIC(10, 2) NOT NULL,
-     created_At TIMESTAMPTZ NOT NULL DEFAULT NOW()
+     created_At TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Tabla de detalles del pedido
@@ -217,7 +217,7 @@ CREATE TABLE tokens_recuperacion (
     token VARCHAR(100)  UNIQUE,
     expiracion TIMESTAMPTZ NOT NULL,
     usado BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Índice para la busqueda de tokens

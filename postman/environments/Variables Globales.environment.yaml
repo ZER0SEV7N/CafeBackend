@@ -1,0 +1,7 @@
+name: Variables Globales
+values:
+  - key: baseUrl
+    value: 'http://localhost:8080'
+  - key: token
+    secret: true
+color: 0

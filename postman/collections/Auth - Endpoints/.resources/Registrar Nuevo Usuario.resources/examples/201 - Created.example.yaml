@@ -1,0 +1,51 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/auth/registrar"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"fullName\": \"Laura Vat\",\r
+
+      \  \"email\": \"laura.vat@cavosh.com\",\r
+
+      \  \"password\": \"Password123!\",\r
+
+      \  \"confirmPassword\": \"Password123!\"\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 16:31:19 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Usuario registrado exitosamente",
+        "data": {
+          "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsYXVyYS52YXRAY2F2b3NoLmNvbSIsImZ1bGxuYW1lIjoiTGF1cmEgVmF0IiwidWlkIjoxLCJyb2wiOiJDTElFTlRFIiwiaWF0IjoxNzg5MDU3ODc5LCJleHAiOjE3ODkxNDQyNzl9.oq5V2W31YWtgfpmW39wlB2Ao-XDCBtt_YXEp_Q-OwWaFhoOQGR_NtL8K8mx-UYDyiYbaKOODqJzaeuVdTxeeCg",
+          "id": 1,
+          "fullName": "Laura Vat",
+          "email": "laura.vat@cavosh.com",
+          "role": "CLIENTE",
+          "rewardPoints": 0
+        },
+        "timestamp": "2026-09-10T16:31:19.768482100Z"
+      }
+order: 1789057889920

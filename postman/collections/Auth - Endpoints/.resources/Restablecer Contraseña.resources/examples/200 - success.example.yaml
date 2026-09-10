@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/auth/reset-password"
+  method: POST
+  body:
+    type: json
+    content: "\r
+
+      {\r
+
+      \  \"token\": \"e638a4bf-e6fd-4f6b-bb9e-98f218bd4540\",\r
+
+      \  \"newPassword\": \"Password123!\",\r
+
+      \  \"confirmPassword\": \"Password123!\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 16:55:34 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Contraseña actualizada exitosa",
+        "timestamp": "2026-09-10T16:55:34.597725Z"
+      }
+order: 1789059338135

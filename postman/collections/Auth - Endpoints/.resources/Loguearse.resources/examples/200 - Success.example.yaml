@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/auth/login"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"email\": \"laura.vat@cavosh.com\",\r
+
+      \  \"password\": \"Password123!\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 16:35:18 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Inicio de sesión exitoso",
+        "data": {
+          "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsYXVyYS52YXRAY2F2b3NoLmNvbSIsImZ1bGxuYW1lIjoiTGF1cmEgVmF0IiwidWlkIjoxLCJyb2wiOiJDTElFTlRFIiwiaWF0IjoxNzg5MDU4MTE4LCJleHAiOjE3ODkxNDQ1MTh9.F0PzhpZO2K2k79ekjxiClw6CBaO06daB8UNi1ZVwbNnL4EtajPolqMfZjZeRHJP3luH318kFxtGU3muKX3nCrA",
+          "id": 1,
+          "fullName": "Laura Vat",
+          "email": "laura.vat@cavosh.com",
+          "role": "CLIENTE",
+          "rewardPoints": 0
+        },
+        "timestamp": "2026-09-10T16:35:18.161614Z"
+      }
+order: 1789058124567

@@ -6,6 +6,7 @@ import com.cavosh.cafebackend.global.domain.exception.SecurityConfigurationExcep
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,15 +38,19 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**", "/v3/api-docs/**").permitAll()
                     .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/api/productos/**").permitAll()
-                    .requestMatchers("/api/tienda/**", "/api/stores/**").permitAll()
-                    .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/escalas/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/grupos-personalizacion/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/tiendas/**", "/api/tienda/**", "/api/stores/**").permitAll()
+
+                    .requestMatchers("/api/cupones/validar").permitAll()
                     .anyRequest().authenticated()
             ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         //En caso de que se produzca un error al construir la cadena de filtros de seguridad, s
-        // e lanza una excepción personalizada SecurityConfigurationException con un mensaje y la causa del error.
+        //se lanza una excepción personalizada SecurityConfigurationException con un mensaje y la causa del error.
         try {
             return http.build();
         } catch (Exception exception) {

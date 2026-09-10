@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/registrar"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"fullName\": \"Laura Vat\",\r
+
+    \  \"email\": \"laura.vat@cavosh.com\",\r
+
+    \  \"password\": \"Password123!\",\r
+
+    \  \"confirmPassword\": \"Password123!\"\r
+
+    }"
+examples: .resources/Registrar Nuevo Usuario.resources/examples
+order: 1789057390277

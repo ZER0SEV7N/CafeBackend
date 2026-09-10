@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/forgot-password"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"email\": \"laura.vat@cavosh.com\"\r
+
+    }"
+examples: .resources/Solicitar Recuperación de Contraseña.resources/examples
+order: 4157204301172705

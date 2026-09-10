@@ -1,0 +1,40 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/user/profile"
+  method: GET
+  body:
+    type: json
+    content: ""
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 16:58:41 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Perfil obtenido",
+        "data": {
+          "id": 1,
+          "fullName": "Laura Vat",
+          "email": "laura.vat@cavosh.com",
+          "rol": "CLIENTE",
+          "rewardPoints": 0
+        },
+        "timestamp": "2026-09-10T16:58:41.882513300Z"
+      }
+order: 1789059525044

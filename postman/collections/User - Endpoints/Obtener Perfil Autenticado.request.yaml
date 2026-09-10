@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/user/profile"
+method: GET
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Obtener Perfil Autenticado.resources/examples
+order: 1789059395292

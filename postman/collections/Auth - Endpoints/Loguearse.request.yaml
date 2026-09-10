@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/login"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"email\": \"laura.vat@cavosh.com\",\r
+
+    \  \"password\": \"Password123!\"\r
+
+    }"
+examples: .resources/Loguearse.resources/examples
+order: 661542477211027
