@@ -6,7 +6,6 @@ import com.cavosh.cafebackend.productos.domain.model.Escala;
 import com.cavosh.cafebackend.productos.domain.ports.in.ManageEscalaUseCase;
 import com.cavosh.cafebackend.productos.domain.ports.out.EscalaRepositoryPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +24,6 @@ import java.util.List;
 public class ManageEscalaUseCaseImpl implements ManageEscalaUseCase {
 
     private final EscalaRepositoryPort escalaRepository; 
-
-    /**
-     * Inyección de la propia clase para permitir la llamada a métodos transaccionales desde otros métodos de la misma clase
-     */
-    @Lazy
-    private final ManageEscalaUseCase self;
-
 
     /**
      * Obtiene todas las escalas.
@@ -79,7 +71,7 @@ public class ManageEscalaUseCaseImpl implements ManageEscalaUseCase {
      */
     @Transactional
     public Escala updateEscala(Integer id, UpdateEscalaCommand command) {
-        Escala actual = self.getEscalaById(id);
+        Escala actual = getEscalaById(id);
         String nuevoNombre = command.nombre().trim();
 
         //Validación de existencia de otra escala con el mismo nombre

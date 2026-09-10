@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Endpoint para todo lo relacionado con las tiendas / sedes de la aplicación.
+ * Endpoints para la gestión de tiendas (cafeterías) en la aplicación.
  * Endpoints:
  *  - GET /api/tiendas: Obtiene todas las tiendas activas.
  *  - GET /api/tiendas/buscar/{ciudad}: Obtiene las tiendas activas filtradas por ciudad.

@@ -6,6 +6,9 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+/**
+ * Entidad JPA que representa un cupón de descuento en la base de datos.
+ */
 @Entity
 @Table(name = "cupones")
 @Getter

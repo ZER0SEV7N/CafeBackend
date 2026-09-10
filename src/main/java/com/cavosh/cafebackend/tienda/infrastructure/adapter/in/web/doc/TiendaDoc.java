@@ -19,9 +19,7 @@ public interface TiendaDoc {
 
     @Operation(summary = "Buscar cafeterías por ciudad", description = "Permite filtrar las sedes ingresando el nombre de una ciudad (ej. Wroclaw).")
     @ApiResponse(responseCode = "200", description = "Lista de cafeterías filtrada")
-    ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getStoresByCity(
-            @Parameter(description = "Nombre de la ciudad", example = "Wroclaw") String city
-    );
+    ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getStoresByCity(@Parameter(description = "Nombre de la ciudad", example = "Wroclaw") String city);
 
     @Operation(summary = "Obtener cafeterías frecuentemente elegidas", description = "Retorna las sedes marcadas como populares/frecuentes.")
     @ApiResponse(responseCode = "200", description = "Lista de cafeterías frecuentes")
