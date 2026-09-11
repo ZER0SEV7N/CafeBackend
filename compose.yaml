@@ -31,19 +31,25 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # Conexión a la base de datos dentro de la red interna de Docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cavosh_db?stringtype=unspecified
-      SPRING_DATASOURCE_USERNAME: cavosh_user
-      SPRING_DATASOURCE_PASSWORD: cavosh_password
+      # Conexión exacta a la base de datos 'cavoshDB'
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cavoshDB?stringtype=unspecified
+      SPRING_DATASOURCE_USERNAME: cavosh
+      SPRING_DATASOURCE_PASSWORD: cavosh123
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
 
-      # Claves de cifrado y JWT (ajusta con tus valores)
-      JWT_SECRET: ${JWT_SECRET:claveSecretaSuperLargaYSeguraParaTokensJwtDeCavoshCafe2026}
-      ENCRYPTION_SECRET_KEY: ${ENCRYPTION_SECRET_KEY:claveSecretaAES256De32BytesLongitud!}
+      # JWT (usando :- si deseas mantener el fallback)
+      JWT_SECRET: ${JWT_SECRET:-claveSecretaSuperLargaYSeguraParaTokensJwtDeCavoshCafe2026}
+      APP_SECURITY_JWT_SECRET: ${JWT_SECRET:-claveSecretaSuperLargaYSeguraParaTokensJwtDeCavoshCafe2026}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-24}
 
-      # Configuración SMTP (para tokens de recuperación)
-      MAIL_USERNAME: ${MAIL_USERNAME:tu_correo@gmail.com}
-      MAIL_PASSWORD: ${MAIL_PASSWORD:tu_password_de_aplicacion}
+      # Criptografía
+      APP_SECURITY_CARD_SECRET_KEY: ${CARD_SECRET_KEY:-0123456789abcdef0123456789abcdef}
+      ENCRYPTION_SECRET_KEY: ${CARD_SECRET_KEY:-0123456789abcdef0123456789abcdef}
+
+      # Configuración SMTP
+      MAIL_USERNAME: ${MAIL_USERNAME:-tu_correo@gmail.com}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-tu_password_de_aplicacion}
+
 volumes:
   pgdata:
     driver: local

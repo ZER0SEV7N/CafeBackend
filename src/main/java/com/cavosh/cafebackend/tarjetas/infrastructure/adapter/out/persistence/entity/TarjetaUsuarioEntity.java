@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.time.Instant;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 /** 
  * Entidad que representa una tarjeta de usuario en la base de datos.
  */
@@ -27,7 +30,8 @@ public class TarjetaUsuarioEntity {
     @Column(nullable = false, length = 30)
     private String marca;
 
-    @Column(name = "ultimos_cuatro", length = 4)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "ultimos_cuatro", length = 4, nullable = false)
     private String ultimosCuatro;
 
     @Column(name = "numero_encriptado", length = 255)

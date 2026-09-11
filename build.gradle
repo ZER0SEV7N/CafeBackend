@@ -11,7 +11,7 @@ description = 'CafeBackend'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -31,27 +31,27 @@ ext {
 }
 
 dependencies {
-    // === Core & Web ===
+    //=== Core & Web ===
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // === Persistencia & Base de Datos ===
+    //=== Persistencia & Base de Datos ===
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
 
-    // === Seguridad & JWT ===
+    //=== Seguridad & JWT ===
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-    // Librerías JWT (jjwt)
+    //Librerías JWT (jjwt)
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
-    // === Documentación OpenAPI / Swagger ===
+    //=== Documentación OpenAPI / Swagger ===
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
 
-    // === Utilidades & Mapeo (Lombok + MapStruct) ===
+    //=== Utilidades & Mapeo (Lombok + MapStruct) ===
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
@@ -59,14 +59,14 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0' // Crítico para evitar conflictos
 
-    // === Herramientas de Desarrollo ===
+    //=== Herramientas de Desarrollo ===
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
 
-    // ==== Envio de correos ====
+    //==== Envio de correos ====
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // === Testing ===
+    //=== Testing ===
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
