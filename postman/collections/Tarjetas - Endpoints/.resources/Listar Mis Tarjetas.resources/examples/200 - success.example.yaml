@@ -1,0 +1,48 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/tarjetas"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 02:53:42 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Tarjetas obtenidas exitosamente",
+        "data": [
+          {
+            "id": 1,
+            "marca": "MasterCard",
+            "ultimosCuatro": "2048",
+            "numeroEnmascarado": "**** 2048",
+            "titular": "Laura Vat",
+            "predeterminado": true
+          },
+          {
+            "id": 2,
+            "marca": "Visa",
+            "ultimosCuatro": "9876",
+            "numeroEnmascarado": "**** 9876",
+            "titular": "Laura Vat",
+            "predeterminado": false
+          }
+        ],
+        "timestamp": "2026-09-11T02:53:42.489806500Z"
+      }
+order: 1789095228531

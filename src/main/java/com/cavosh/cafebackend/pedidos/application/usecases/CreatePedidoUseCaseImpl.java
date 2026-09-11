@@ -46,6 +46,7 @@ public class CreatePedidoUseCaseImpl implements CreatePedidoUseCase {
      * @throws BusinessRuleException si el pedido no cumple con las reglas de negocio.
      * @throws ResourceNotFoundException si algún recurso relacionado con el pedido no se encuentra.
      */
+    @SuppressWarnings("null")
     @Transactional 
     public Pedido savePedido(CreatePedidoCommand command) {
         validarItems(command);
@@ -110,6 +111,7 @@ public class CreatePedidoUseCaseImpl implements CreatePedidoUseCase {
      * @param detalles La lista de detalles del pedido.
      * @return El subtotal del detalle creado.
      */
+    @SuppressWarnings("null")
     private BigDecimal crearDetalle(ItemPedidoCommand itemCmd, List<DetallePedido> detalles) {
         validarCantidad(itemCmd);
         

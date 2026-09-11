@@ -81,7 +81,7 @@ public class TarjetaController implements TarjetaDoc {
      * @return Un mensaje indicando que la tarjeta ha sido seleccionada como predeterminada.
      */
     @PatchMapping("/{id}/predeterminada")
-    public ResponseEntity<ResponseGlobal<Void>> checkDefaults(@AuthenticationPrincipal Usuario usuarioAuth, @PathVariable Integer id) {
+    public ResponseEntity<ResponseGlobal<Void>> checkDefaults(@AuthenticationPrincipal Usuario usuarioAuth, @PathVariable("id") Integer id) {
         tarjetaUseCase.checkDefaults(usuarioAuth.id(), id);
         return ResponseEntity.ok(ResponseGlobal.success(null, "Tarjeta seleccionada como predeterminada"));
     }
@@ -93,7 +93,7 @@ public class TarjetaController implements TarjetaDoc {
      * @return Un mensaje indicando que la tarjeta ha sido eliminada.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseGlobal<Void>> deleteTarjeta(@AuthenticationPrincipal Usuario usuarioAuth, @PathVariable Integer id) {
+    public ResponseEntity<ResponseGlobal<Void>> deleteTarjeta(@AuthenticationPrincipal Usuario usuarioAuth, @PathVariable("id") Integer id) {
         tarjetaUseCase.deleteTarjeta(usuarioAuth.id(), id);
         return ResponseEntity.ok(ResponseGlobal.success(null, "Tarjeta eliminada exitosamente"));
     }

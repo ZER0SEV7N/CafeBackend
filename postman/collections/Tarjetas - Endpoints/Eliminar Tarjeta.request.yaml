@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tarjetas/2"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Eliminar Tarjeta.resources/examples
+order: 4049705162415238

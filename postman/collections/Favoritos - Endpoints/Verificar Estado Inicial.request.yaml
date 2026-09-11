@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/favoritos/2/check"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Verificar Estado Inicial.resources/examples
+order: 1789095683044

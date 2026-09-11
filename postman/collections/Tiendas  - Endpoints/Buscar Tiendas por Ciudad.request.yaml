@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tiendas/buscar/Wroclaw"
+method: GET
+examples: .resources/Buscar Tiendas por Ciudad.resources/examples
+order: 2412123943512393

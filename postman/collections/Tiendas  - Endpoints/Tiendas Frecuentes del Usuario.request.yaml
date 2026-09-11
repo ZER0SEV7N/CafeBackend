@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tiendas/frecuentes"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+order: 2933379418214211

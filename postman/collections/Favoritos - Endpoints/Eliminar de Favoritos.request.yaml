@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/favoritos/1"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Eliminar de Favoritos.resources/examples
+order: 4326918720141423

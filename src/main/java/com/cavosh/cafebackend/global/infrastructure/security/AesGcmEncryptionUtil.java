@@ -20,7 +20,7 @@ public class AesGcmEncryptionUtil {
 
     //Establecer constantes para la encriptación AES-GCM
     private static final String ALGORITHM = "AES/GCM/NoPadding";
-    private static final int TAG_LENGTH_BIT = 126; // Longitud del tag de autenticación en bytes
+    private static final int TAG_LENGTH_BIT = 128; // Longitud del tag de autenticación en bytes
     private static final int IV_LENGTH_BYTE = 12; // Longitud del vector de inicialización en bytes
 
     //Clave secreta para la encriptación AES-GCM, que se inyecta a través del constructor

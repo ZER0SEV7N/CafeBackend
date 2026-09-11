@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/favoritos"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Listar Todos los Favoritos.resources/examples
+order: 4079051691904076

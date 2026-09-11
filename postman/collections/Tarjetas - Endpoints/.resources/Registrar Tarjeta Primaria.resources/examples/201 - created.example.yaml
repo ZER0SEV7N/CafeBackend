@@ -1,0 +1,51 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/tarjetas"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"marca\": \"MasterCard\",\r
+
+      \  \"numeroTarjeta\": \"5412751234122048\",\r
+
+      \  \"titular\": \"Laura Vat\",\r
+
+      \  \"predeterminado\": true\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 02:51:11 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Tarjeta registrada exitosamente",
+        "data": {
+          "id": 1,
+          "marca": "MasterCard",
+          "ultimosCuatro": "2048",
+          "numeroEnmascarado": "**** 2048",
+          "titular": "Laura Vat",
+          "predeterminado": true
+        },
+        "timestamp": "2026-09-11T02:51:11.268076700Z"
+      }
+order: 1789095078609

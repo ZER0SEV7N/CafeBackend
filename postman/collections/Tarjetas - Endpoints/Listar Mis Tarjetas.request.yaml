@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tarjetas"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Listar Mis Tarjetas.resources/examples
+order: 3299223295362207

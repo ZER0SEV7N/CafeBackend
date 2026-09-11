@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tarjetas"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"marca\": \"MasterCard\",\r
+
+    \  \"numeroTarjeta\": \"5412751234122048\",\r
+
+    \  \"titular\": \"Laura Vat\",\r
+
+    \  \"predeterminado\": true\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Registrar Tarjeta Primaria.resources/examples
+order: 1789094768246

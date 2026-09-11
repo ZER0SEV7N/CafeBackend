@@ -3,6 +3,9 @@ values:
   - key: baseUrl
     value: ''
     enabled: true
-  - key: token
+  - key: tokenUsuario
+    enabled: true
+    secret: true
+  - key: tokenAdmin
     value: ''
     enabled: true

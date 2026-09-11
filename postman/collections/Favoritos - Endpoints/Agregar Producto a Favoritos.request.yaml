@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/favoritos/1"
+method: POST
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Agregar Producto a Favoritos.resources/examples
+order: 3502905447845134

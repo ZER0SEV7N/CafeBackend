@@ -50,7 +50,7 @@ public class TiendaController {
      * @return lista con las tiendas de la ciudad especificada.
      */
         @GetMapping("/buscar/{ciudad}")
-        public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasByCiudad(@PathVariable String ciudad) {
+        public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasByCiudad(@PathVariable("ciudad") String ciudad) {
         List<TiendaResponse> tiendas = getTiendasUseCase.getTiendasByCiudad(ciudad).stream()
                 .map(TiendaResponse::from)
                 .toList();

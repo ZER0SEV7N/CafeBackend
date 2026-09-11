@@ -1,0 +1,40 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/favoritos"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 03:04:49 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Favoritos obtenidos con éxito",
+        "data": [
+          {
+            "id": 1,
+            "categoriaId": 1,
+            "nombre": "Flat White Especial",
+            "imagenUrl": "https://images.unsplash.com/photo-1577968897966-3d4325b36b61",
+            "precioBase": 4.2,
+            "nuevo": false
+          }
+        ],
+        "timestamp": "2026-09-11T03:04:49.558115900Z"
+      }
+order: 1789095894863

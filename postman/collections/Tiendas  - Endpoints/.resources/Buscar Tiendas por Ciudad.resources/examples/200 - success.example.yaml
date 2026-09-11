@@ -1,0 +1,62 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/tiendas/buscar/Wroclaw"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 02:41:32 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Cafetería obtenidas con éxito",
+        "data": [
+          {
+            "id": 1,
+            "nombre": "Cavosh Cafe",
+            "direccion": "Legnicka 20, Wroclaw",
+            "ciudad": "Wroclaw",
+            "latitud": 51.1162,
+            "longitud": 17.0089,
+            "horaApertura": "08:00 - 22:00",
+            "abierto": true
+          },
+          {
+            "id": 2,
+            "nombre": "Cavosh Cafe",
+            "direccion": "Legnicka 5, Wroclaw",
+            "ciudad": "Wroclaw",
+            "latitud": 51.1147,
+            "longitud": 17.0145,
+            "horaApertura": "08:00 - 22:00",
+            "abierto": true
+          },
+          {
+            "id": 3,
+            "nombre": "Cavosh Cafe",
+            "direccion": "Rynek 12, Wroclaw",
+            "ciudad": "Wroclaw",
+            "latitud": 51.1095,
+            "longitud": 17.0315,
+            "horaApertura": "07:30 - 23:00",
+            "abierto": true
+          }
+        ],
+        "timestamp": "2026-09-11T02:41:32.739618500Z"
+      }
+order: 1789094497242

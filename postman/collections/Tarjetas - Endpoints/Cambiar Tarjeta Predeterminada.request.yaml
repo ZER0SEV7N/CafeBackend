@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tarjetas/1/predeterminada"
+method: PATCH
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Cambiar Tarjeta Predeterminada.resources/examples
+order: 3787304302588246

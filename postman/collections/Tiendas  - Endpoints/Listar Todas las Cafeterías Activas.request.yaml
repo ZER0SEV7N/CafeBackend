@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/tiendas"
+method: GET
+examples: .resources/Listar Todas las Cafeterías Activas.resources/examples
+order: 1789094403395
