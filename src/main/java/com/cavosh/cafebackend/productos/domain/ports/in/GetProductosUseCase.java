@@ -12,7 +12,8 @@ public interface GetProductosUseCase {
     List<Producto> getAllActivoProductos();
     List<Producto> getProductosByCategoria(Integer categoryId);
     List<Producto> getNuevoInProductos();
-    List<Producto> getFrequenciaOrdernadosProductos();
     Producto getProductoById(Integer id);
     List<Categoria> getCategorias();
+    List<Producto> searchProductos(String query);
+    List<Producto> getProductosFrecuentes(Integer usuarioId);
 }

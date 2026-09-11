@@ -40,12 +40,17 @@ public class GetTiendasUseCaseImpl implements GetTiendasUseCase {
         return tiendaRepository.findByCiudad(ciudad.trim());
     }
 
-    /**
-     * Obtiene las tiendas más elegidas.
-     * @return Lista de cafeterias más elegidas.
+    /** 
+     * Obtiene las tiendas más frecuentes para un usuario específico.
+     * @param usuarioId - El ID del usuario.
+     * @return Una lista de tiendas más frecuentes para el usuario.
      */
     @Transactional(readOnly = true)
-    public List<Cafeteria> getFrequentlyChosenTiendas() {
-        return tiendaRepository.findFrequentlyChosen();
+    public List<Cafeteria> getTiendasFrecuentes(Integer usuarioId) {
+        if (usuarioId == null) 
+            return List.of();
+        
+        // Evaluamos sedes con 3 o más pedidos en los últimos 30 días, devolviendo hasta 3
+        return tiendaRepository.findFrecuentesPorUsuario(usuarioId);
     }
 }

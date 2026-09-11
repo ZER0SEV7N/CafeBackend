@@ -24,8 +24,6 @@ public record CrearProductoRequest(
         BigDecimal precioBase,
 
         boolean nuevo,
-        boolean frecuente,
-
         List<Integer> escalaIds,
         List<Integer> grupoPersonalizacionIds
 ) {}

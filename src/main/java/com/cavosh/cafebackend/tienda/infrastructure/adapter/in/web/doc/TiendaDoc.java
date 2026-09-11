@@ -1,10 +1,14 @@
 package com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web.doc;
 
+import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
+import com.cavosh.cafebackend.productos.infrastructure.adapter.in.web.dto.productos.ProductoResumenResponse;
 import com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web.dto.TiendaResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
@@ -21,7 +25,12 @@ public interface TiendaDoc {
     @ApiResponse(responseCode = "200", description = "Lista de cafeterías filtrada")
     ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getStoresByCity(@Parameter(description = "Nombre de la ciudad", example = "Wroclaw") String city);
 
-    @Operation(summary = "Obtener cafeterías frecuentemente elegidas", description = "Retorna las sedes marcadas como populares/frecuentes.")
-    @ApiResponse(responseCode = "200", description = "Lista de cafeterías frecuentes")
-    ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getFrequentlyChosenStores();
+    @Operation(summary = "Obtener la cafeterias mas frecuentadas por el usuario", 
+            description = "Retorna la lista de las sedes más visitadas por el usuario autenticado (últimos 30 días, máximo 3).")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de cafeterías frecuentes obtenida correctamente"),
+            @ApiResponse(responseCode = "401", description = "No autenticado")
+    })
+    @SecurityRequirement(name = "bearerAuth")
+    ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosFrecuentes(@Parameter(hidden = true) Usuario usuarioAuth);
 }

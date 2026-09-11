@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos/categoria/1"
+method: GET
+examples: .resources/Filtrar por Categoría.resources/examples
+order: 3776686873370876

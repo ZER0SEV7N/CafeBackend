@@ -15,7 +15,6 @@ public record ProductoDetalleResponse(
         String imagenUrl,
         BigDecimal precioBase,
         boolean nuevo,
-        boolean frecuente,
         List<EscalaResponse> escalas,
         List<GrupoPersonalizacionResponse> gruposPersonalizacion
 ) {
@@ -36,7 +35,6 @@ public record ProductoDetalleResponse(
                 p.imagenUrl(),
                 p.precioBase(),
                 p.nuevo(),
-                p.frecuente(),
                 escalas,
                 grupos
         );

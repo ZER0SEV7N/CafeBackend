@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos?q=caramel"
+method: GET
+queryParams:
+  q: caramel
+examples: .resources/Buscador de Productos (Search Bar).resources/examples
+order: 4028014740992203

@@ -1,5 +1,6 @@
 package com.cavosh.cafebackend.productos.infrastructure.adapter.in.web;
 
+import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
 import com.cavosh.cafebackend.productos.domain.model.Producto;
 import com.cavosh.cafebackend.productos.domain.ports.in.GetProductosUseCase;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,13 +61,17 @@ public class ProductoController implements ProductoDoc {
     }
 
     /**
-     * Endpoint para obtener todos los productos activos
-     * @GET /api/productos
-     * @return ResponseEntity con la lista de productos activos
+     * Endpoint para listar productos activos o buscar por coincidencia.
+     *  - Carga normal: GET /api/productos
+     *  - Barra de búsqueda: GET /api/productos?q=caramel
+     * 
+     * @param q Término opcional para filtrar por nombre o descripción
+     * @return Lista de productos activos (filtrados o completos)
      */
     @GetMapping
-    public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getAllProductos() {
-        List<ProductoResumenResponse> response = getProductosUseCase.getAllActivoProductos()
+    public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductos(@RequestParam(name = "q", required = false) String q) {
+        //Si no hay término de búsqueda, se listan todos los productos activos
+        List<ProductoResumenResponse> response = getProductosUseCase.searchProductos(q)
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
@@ -104,20 +110,23 @@ public class ProductoController implements ProductoDoc {
         return ResponseEntity.ok(ResponseGlobal.success(response, "Productos nuevos obtenidos con éxito"));
     }
 
-
     /**
-     * Endpoint para obtener los productos frecuentes
+     * Endpoint para obtener los productos frecuentes de un usuario
      * @GET /api/productos/frecuentes
-     * @return ResponseEntity con la lista de productos frecuentes
+     * @param usuarioAuth - Usuario autenticado (obtenido del token)
+     * @return ResponseEntity con la lista de productos frecuentes del usuario
      */
     @GetMapping("/frecuentes")
-    public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosFrecuentes() {
-        List<ProductoResumenResponse> response = getProductosUseCase.getFrequenciaOrdernadosProductos()
+    public ResponseEntity<ResponseGlobal<List<ProductoResumenResponse>>> getProductosFrecuentes(@AuthenticationPrincipal Usuario usuarioAuth) {
+        if (usuarioAuth == null) 
+            return ResponseEntity.ok(ResponseGlobal.success(List.of(), "Sin productos frecuentes"));
+
+        List<ProductoResumenResponse> response = getProductosUseCase.getProductosFrecuentes(usuarioAuth.id())
                 .stream()
                 .map(ProductoResumenResponse::from)
                 .toList();
 
-        return ResponseEntity.ok(ResponseGlobal.success(response, "Productos frecuentes obtenidos con éxito"));
+        return ResponseEntity.ok(ResponseGlobal.success(response, "Productos frecuentes del usuario"));
     }
 
     /**
@@ -140,6 +149,16 @@ public class ProductoController implements ProductoDoc {
      * Endpoint para crear un nuevo producto
      * @POST /api/productos
      * @param request - Datos del producto a crear
+     * @dto : {
+     *     - "categoriaId": "Número entero que representa el ID de la categoría a la que pertenece el producto",
+     *     - "nombre": "Nombre del producto",
+     *     - "descripcion": "Descripción del producto",
+     *     - "imagenUrl": "URL de la imagen del producto",
+     *     - "precioBase": "Precio base del producto",
+     *     - "nuevo": "Indica si el producto es nuevo",
+     *     - "escalaIds": "Lista de IDs de las escalas asociadas al producto",
+     *     - "grupoPersonalizacionIds": "Lista de IDs de los grupos de personalización asociados al producto"
+     * }
      * @return ResponseEntity con el detalle del producto creado
      */
     @PostMapping
@@ -152,7 +171,6 @@ public class ProductoController implements ProductoDoc {
                 request.imagenUrl(),
                 request.precioBase(),
                 request.nuevo(),
-                request.frecuente(),
                 request.escalaIds(),
                 request.grupoPersonalizacionIds()
         );
@@ -178,7 +196,6 @@ public class ProductoController implements ProductoDoc {
                 request.imagenUrl(),
                 request.precioBase(),
                 request.nuevo(),
-                request.frecuente(),
                 request.activo(),
                 request.escalaIds(),
                 request.grupoPersonalizacionIds()

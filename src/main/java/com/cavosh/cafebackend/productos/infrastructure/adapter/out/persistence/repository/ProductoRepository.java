@@ -4,7 +4,7 @@ import com.cavosh.cafebackend.productos.infrastructure.adapter.out.persistence.e
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -25,4 +25,7 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
     @Modifying
     @Query("UPDATE ProductoEntity p SET p.activo = :activo, p.updatedAt = CURRENT_TIMESTAMP WHERE p.id = :id")
     int updateActivoById(Integer id, boolean activo);
+
+    @Query(value = "SELECT * FROM sp_obtener_productos_frecuentes(:usuarioId, 30, 3, 3)", nativeQuery = true)
+    List<ProductoEntity> findFrecuentesPorUsuario(@Param("usuarioId") Integer usuarioId);
 }

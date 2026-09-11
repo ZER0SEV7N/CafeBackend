@@ -1,0 +1,146 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/productos/1"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 17:23:23 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Detalle del producto obtenido con éxito",
+        "data": {
+          "id": 1,
+          "categoriaId": 1,
+          "nombre": "Caramel Macchiato",
+          "descripcion": "Nuestro Caramel Macchiato es la combinación perfecta de un espresso intenso, leche cremosa y el dulce aroma a caramelo.",
+          "imagenUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop",
+          "precioBase": 4,
+          "nuevo": true,
+          "frecuente": true,
+          "escalas": [
+            {
+              "id": 1,
+              "nombre": "Pequeño",
+              "volumenMl": 250,
+              "recargoPrecio": 0
+            },
+            {
+              "id": 2,
+              "nombre": "Mediano",
+              "volumenMl": 350,
+              "recargoPrecio": 0.5
+            },
+            {
+              "id": 3,
+              "nombre": "Grande",
+              "volumenMl": 450,
+              "recargoPrecio": 1
+            }
+          ],
+          "gruposPersonalizacion": [
+            {
+              "id": 1,
+              "nombreGrupo": "Leche",
+              "seleccionMultiple": false,
+              "obligatorio": true,
+              "opciones": [
+                {
+                  "id": 1,
+                  "nombre": "Leche entera",
+                  "recargoPrecio": 0,
+                  "porDefecto": true
+                },
+                {
+                  "id": 2,
+                  "nombre": "Leche deslactosada",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 3,
+                  "nombre": "Leche de soya",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 4,
+                  "nombre": "Leche descremada",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 5,
+                  "nombre": "Leche de almendras",
+                  "recargoPrecio": 0.7,
+                  "porDefecto": false
+                },
+                {
+                  "id": 6,
+                  "nombre": "Leche de avena",
+                  "recargoPrecio": 0.7,
+                  "porDefecto": false
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "nombreGrupo": "Crema Batida",
+              "seleccionMultiple": false,
+              "obligatorio": false,
+              "opciones": [
+                {
+                  "id": 7,
+                  "nombre": "Sin crema batida",
+                  "recargoPrecio": 0,
+                  "porDefecto": true
+                },
+                {
+                  "id": 8,
+                  "nombre": "Con crema batida",
+                  "recargoPrecio": 0.5,
+                  "porDefecto": false
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "nombreGrupo": "Cafeina",
+              "seleccionMultiple": false,
+              "obligatorio": false,
+              "opciones": [
+                {
+                  "id": 9,
+                  "nombre": "Con cafeina",
+                  "recargoPrecio": 0,
+                  "porDefecto": true
+                },
+                {
+                  "id": 10,
+                  "nombre": "Sin cafeina",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                }
+              ]
+            }
+          ]
+        },
+        "timestamp": "2026-09-10T17:23:23.218469300Z"
+      }
+order: 1789061021707

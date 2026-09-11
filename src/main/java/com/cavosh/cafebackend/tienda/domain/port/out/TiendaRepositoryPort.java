@@ -15,5 +15,5 @@ public interface TiendaRepositoryPort {
     Optional<Cafeteria> findById(Integer id);
     List<Cafeteria> findAllActive();
     List<Cafeteria> findByCiudad(String city);
-    List<Cafeteria> findFrequentlyChosen();
+    List<Cafeteria> findFrecuentesPorUsuario(Integer usuarioId);
 }

@@ -9,8 +9,7 @@ public record ProductoResumenResponse(
         String nombre,
         String imagenUrl,
         BigDecimal precioBase,
-        boolean nuevo,
-        boolean frecuente
+        boolean nuevo
 ) {
     public static ProductoResumenResponse from(Producto p) {
         return new ProductoResumenResponse(
@@ -19,8 +18,7 @@ public record ProductoResumenResponse(
                 p.nombre(),
                 p.imagenUrl(),
                 p.precioBase(),
-                p.nuevo(),
-                p.frecuente()
+                p.nuevo()
         );
     }
 }

@@ -74,12 +74,14 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
                 .toList();
     }
 
-    /**
-     * Obtener una lista de todos los productos frecuentes ordenados
-     * @return la lista de frecuentes ordenados
+    /** 
+     * Obtener una lista de productos frecuentes para un usuario específico
+     * @param usuarioId - Id del usuario
+     * @return la lista de productos frecuentes para el usuario
      */
-    public List<Producto> findFrecuenteOrdenado() {
-        return productoRepository.findByFrecuenteTrueAndActivoTrue()
+    @Override
+    public List<Producto> findFrecuentesPorUsuario(Integer usuarioId) {
+        return productoRepository.findFrecuentesPorUsuario(usuarioId)
                 .stream()
                 .map(productoMapper::toDomain)
                 .toList();
@@ -91,6 +93,13 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
      */
     public List<Categoria> findAllCategorias() {
         return categoriaRepository.findByActivaTrueOrderByOrdenVisualAsc()
+                .stream()
+                .map(productoMapper::toDomain)
+                .toList();
+    }
+    
+    public List<Producto> searchProductos(String query) {
+        return productoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(query)
                 .stream()
                 .map(productoMapper::toDomain)
                 .toList();
@@ -138,10 +147,11 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
         return productoMapper.toDomain(guardado);
     }
 
-    /**
-     *
-     * @param id
-     * @param activo
+    /** 
+     * Cambia el estado de un producto.
+     * @param id - ID del producto
+     * @param activo - Nuevo estado del producto
+     * @throws ResourceNotFoundException si no se encuentra el producto con el ID proporcionado
      */
     public void changeState(Integer id, boolean activo) {
         int filasAfectadas = productoRepository.updateActivoById(id, activo);

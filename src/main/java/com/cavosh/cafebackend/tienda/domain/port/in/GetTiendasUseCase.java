@@ -11,5 +11,5 @@ import java.util.List;
 public interface GetTiendasUseCase {
     List<Cafeteria> getAllActiveTiendas();
     List<Cafeteria> getTiendasByCiudad(String ciudad);
-    List<Cafeteria> getFrequentlyChosenTiendas();
+    List<Cafeteria> getTiendasFrecuentes(Integer usuarioId);
 }

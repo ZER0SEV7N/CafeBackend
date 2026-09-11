@@ -1,0 +1,50 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/productos/categorias"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 23:32:27 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Categorías obtenidas con éxito",
+        "data": [
+          {
+            "id": 1,
+            "nombre": "Bebida caliente",
+            "iconoUrl": "https://cdn-icons-png.flaticon.com/512/924/924514.png",
+            "ordenVisual": 1
+          },
+          {
+            "id": 2,
+            "nombre": "Bebida fria",
+            "iconoUrl": "https://cdn-icons-png.flaticon.com/512/2935/2935413.png",
+            "ordenVisual": 2
+          },
+          {
+            "id": 3,
+            "nombre": "Panaderia",
+            "iconoUrl": "https://cdn-icons-png.flaticon.com/512/3014/3014521.png",
+            "ordenVisual": 3
+          }
+        ],
+        "timestamp": "2026-09-10T23:32:27.602964500Z"
+      }
+order: 1789083161693

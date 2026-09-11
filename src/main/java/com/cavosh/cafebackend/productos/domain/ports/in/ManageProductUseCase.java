@@ -17,7 +17,6 @@ public interface ManageProductUseCase {
             String imagenUrl,
             BigDecimal precioBase,
             boolean nuevo,
-            boolean frecuente,
             List<Integer> escalaIds,
             List<Integer> grupoPersonalizacionIds
     ) {}
@@ -30,7 +29,6 @@ public interface ManageProductUseCase {
             String imagenUrl,
             BigDecimal precioBase,
             boolean nuevo,
-            boolean frecuente,
             boolean activo,
             List<Integer> escalaIds,
             List<Integer> grupoPersonalizacionIds

@@ -27,7 +27,6 @@ public record Cafeteria(
         BigDecimal longitud,
         LocalTime horaApertura,
         LocalTime horaCierre,
-        boolean frecuente,
         boolean activo,
         Instant createdAt
 ) {

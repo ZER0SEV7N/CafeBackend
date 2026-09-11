@@ -1,9 +1,9 @@
 -- Sede y cafeteria
-INSERT INTO cafeterias (id, nombre, direccion, ciudad, latitud, longitud, hora_apertura, hora_cierre, frecuente, activo)
+INSERT INTO cafeterias (id, nombre, direccion, ciudad, latitud, longitud, hora_apertura, hora_cierre, activo)
 VALUES
-    (1, 'Cavosh Cafe', 'Legnicka 20, Wroclaw', 'Wroclaw', 51.1162000, 17.0089000, '08:00:00', '22:00:00', FALSE, TRUE),
-    (2, 'Cavosh Cafe', 'Legnicka 5, Wroclaw', 'Wroclaw', 51.1147000, 17.0145000, '08:00:00', '22:00:00', FALSE, TRUE),
-    (3, 'Cavosh Cafe', 'Rynek 12, Wroclaw', 'Wroclaw', 51.1095000, 17.0315000, '07:30:00', '23:00:00', FALSE, TRUE)
+    (1, 'Cavosh Cafe', 'Legnicka 20, Wroclaw', 'Wroclaw', 51.1162000, 17.0089000, '08:00:00', '22:00:00',  TRUE),
+    (2, 'Cavosh Cafe', 'Legnicka 5, Wroclaw', 'Wroclaw', 51.1147000, 17.0145000, '08:00:00', '22:00:00',  TRUE),
+    (3, 'Cavosh Cafe', 'Rynek 12, Wroclaw', 'Wroclaw', 51.1095000, 17.0315000, '07:30:00', '23:00:00',  TRUE)
 ON CONFLICT (id) DO NOTHING;
 
 -- Categorias
@@ -52,14 +52,14 @@ VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- Productos
-INSERT INTO producto (id, categoria_id, nombre, descripcion, imagen_url, precio_base, nuevo, frecuente, activo)
+INSERT INTO producto (id, categoria_id, nombre, descripcion, imagen_url, precio_base, nuevo, activo)
 VALUES
-    (1, 1, 'Caramel Macchiato', 'Nuestro Caramel Macchiato es la combinación perfecta de un espresso intenso, leche cremosa y el dulce aroma a caramelo.', 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop', 4.00, TRUE, TRUE, TRUE),
-    (2, 1, 'Latte de Vainilla', 'Un espresso intenso equilibrado con leche vaporizada y un sutil toque dulce de vainilla.', 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=600&auto=format&fit=crop', 3.00, TRUE, FALSE, TRUE),
-    (3, 1, 'Capuchino Tradicional', 'Espresso oscuro e intenso cubierto con una suave y densa capa de espuma de leche.', 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=600&auto=format&fit=crop', 3.00, FALSE, FALSE, TRUE),
-    (4, 1, 'Moca de Chocolate Blanco', 'Espresso, leche vaporizada y deliciosa salsa de chocolate blanco terminado con crema batida.', 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?q=80&w=600&auto=format&fit=crop', 4.00, TRUE, FALSE, TRUE),
-    (5, 1, 'Café Moca', 'Reconfortante moca que combina espresso, cacao semiamargo y leche vaporizada.', 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop', 3.80, FALSE, TRUE, TRUE),
-    (6, 3, 'Rol de Canela', 'Espiral recién horneado con canela dulce y un cremoso glaseado de vainilla.', 'https://images.unsplash.com/photo-1509365465651-6425a27877be?q=80&w=600&auto=format&fit=crop', 3.50, FALSE, FALSE, TRUE)
+    (1, 1, 'Caramel Macchiato', 'Nuestro Caramel Macchiato es la combinación perfecta de un espresso intenso, leche cremosa y el dulce aroma a caramelo.', 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop', 4.00, TRUE,  TRUE),
+    (2, 1, 'Latte de Vainilla', 'Un espresso intenso equilibrado con leche vaporizada y un sutil toque dulce de vainilla.', 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=600&auto=format&fit=crop', 3.00, TRUE,  TRUE),
+    (3, 1, 'Capuchino Tradicional', 'Espresso oscuro e intenso cubierto con una suave y densa capa de espuma de leche.', 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=600&auto=format&fit=crop', 3.00, FALSE,  TRUE),
+    (4, 1, 'Moca de Chocolate Blanco', 'Espresso, leche vaporizada y deliciosa salsa de chocolate blanco terminado con crema batida.', 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?q=80&w=600&auto=format&fit=crop', 4.00, TRUE, TRUE),
+    (5, 1, 'Café Moca', 'Reconfortante moca que combina espresso, cacao semiamargo y leche vaporizada.', 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop', 3.80, FALSE, TRUE),
+    (6, 3, 'Rol de Canela', 'Espiral recién horneado con canela dulce y un cremoso glaseado de vainilla.', 'https://images.unsplash.com/photo-1509365465651-6425a27877be?q=80&w=600&auto=format&fit=crop', 3.50, FALSE, TRUE)
 ON CONFLICT (id) DO NOTHING;
 
 -- Tablas intermediarias: PRODUCTO <-> ESCALA

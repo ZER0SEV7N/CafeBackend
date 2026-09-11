@@ -1,0 +1,6 @@
+$kind: http-request
+name: Seccion "Nuevos" de la pantalla Home
+url: "{{baseUrl}}/api/productos/nuevos"
+method: GET
+examples: .resources/Seccion -Nuevos- de la pantalla Home.resources/examples
+order: 4266735151348400

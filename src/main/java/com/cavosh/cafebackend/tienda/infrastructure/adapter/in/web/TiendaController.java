@@ -1,10 +1,12 @@
 package com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web;
 
+import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
 import com.cavosh.cafebackend.tienda.domain.port.in.GetTiendasUseCase;
 import com.cavosh.cafebackend.tienda.infrastructure.adapter.in.web.dto.TiendaResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,16 +59,22 @@ public class TiendaController {
     }
 
     /**
-     * Endpoint para obtener las tiendas que son frecuentemente elegidas por los usuarios.
+     * Endpoint para obtener las tiendas frecuentes por el usuario.
      * @GET /api/tiendas/frecuentes
-     * @return Retorna una lista de tiendas frecuentes.
+     * @param usuarioAuth el usuario autenticado.
+     * @return lista con las tiendas más frecuentes del usuario.
      */
     @GetMapping("/frecuentes")
-    public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getFrequentlyChosenTiendas() {
-        List<TiendaResponse> tiendas = getTiendasUseCase.getFrequentlyChosenTiendas().stream()
+    public ResponseEntity<ResponseGlobal<List<TiendaResponse>>> getTiendasFrecuentes(@AuthenticationPrincipal Usuario usuarioAuth) {
+        if (usuarioAuth == null) 
+            return ResponseEntity.ok(ResponseGlobal.success(List.of(), "Sin tiendas frecuentes"));
+        
+
+        List<TiendaResponse> response = getTiendasUseCase.getTiendasFrecuentes(usuarioAuth.id())
+                .stream()
                 .map(TiendaResponse::from)
                 .toList();
 
-        return ResponseEntity.ok(ResponseGlobal.success(tiendas, "Cafeterías obtenidas con éxito"));
+        return ResponseEntity.ok(ResponseGlobal.success(response, "Tiendas frecuentes del usuario"));
     }
 }

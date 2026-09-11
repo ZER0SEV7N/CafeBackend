@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/productos?q=caramel"
+  method: GET
+  queryParams:
+    q: caramel
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Thu, 10 Sep 2026 23:31:24 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Productos obtenidos con éxito",
+        "data": [
+          {
+            "id": 1,
+            "categoriaId": 1,
+            "nombre": "Caramel Macchiato",
+            "imagenUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop",
+            "precioBase": 4,
+            "nuevo": true,
+            "frecuente": true
+          }
+        ],
+        "timestamp": "2026-09-10T23:31:24.196269400Z"
+      }
+order: 1789083086303

@@ -76,7 +76,6 @@ CREATE TABLE cafeterias (
     longitud NUMERIC(10, 7),
     hora_apertura TIME NOT NULL,
     hora_cierre TIME NOT NULL,
-    frecuente BOOLEAN DEFAULT FALSE,
     activo BOOLEAN DEFAULT TRUE,
     created_At TIMESTAMPTZ DEFAULT NOW()
 );
@@ -127,7 +126,6 @@ CREATE TABLE producto (
     imagen_url VARCHAR(255),
     precio_base NUMERIC(10, 2) NOT NULL,
     nuevo BOOLEAN DEFAULT FALSE,
-    frecuente BOOLEAN DEFAULT FALSE,
     activo BOOLEAN DEFAULT TRUE,
     created_At TIMESTAMPTZ DEFAULT NOW(),
     updated_At TIMESTAMPTZ DEFAULT NOW()
@@ -135,6 +133,8 @@ CREATE TABLE producto (
 
 -- Index para buscar más rápido los productos por categoria
 CREATE INDEX idx_producto_categoria ON producto(categoria_id);
+CREATE INDEX idx_pedidos_usuario_estado_fecha ON pedidos(usuario_id, estado, created_at);
+CREATE INDEX idx_detalles_pedido_pedido_producto ON detalles_pedido(pedido_id, producto_id);
 
 -- Tabla de la relación entre productos y escalas
 CREATE TABLE producto_escalas (
@@ -222,3 +222,92 @@ CREATE TABLE tokens_recuperacion (
 
 -- Índice para la busqueda de tokens
 CREATE INDEX idx_tokens_recuperacion_token ON tokens_recuperacion(token);
+
+-- Procedimiento almacenado para obtener los productos más frecuentes de un usuario
+CREATE OR REPLACE FUNCTION sp_obtener_productos_frecuentes(
+    p_usuario_id INT,
+    p_dias INT DEFAULT 30,
+    p_min_pedidos INT DEFAULT 3,
+    p_limite INT DEFAULT 3
+)
+RETURNS TABLE (
+    id INT,
+    categoria_id INT,
+    nombre VARCHAR,
+    descripcion TEXT,
+    imagen_url VARCHAR,
+    precio_base NUMERIC,
+    nuevo BOOLEAN,
+    activo BOOLEAN,
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
+) 
+LANGUAGE sql
+AS $$
+    SELECT 
+        pr.id,
+        pr.categoria_id,
+        pr.nombre,
+        pr.descripcion,
+        pr.imagen_url,
+        pr.precio_base,
+        pr.nuevo,
+        pr.activo,
+        pr.created_at,
+        pr.updated_at
+    FROM producto pr
+    INNER JOIN detalles_pedido dp ON dp.producto_id = pr.id
+    INNER JOIN pedidos p ON p.id = dp.pedido_id
+    WHERE p.usuario_id = p_usuario_id
+      AND p.estado != 'CANCELADO'
+      AND p.created_at >= (NOW() - (p_dias || ' days')::INTERVAL)
+      AND pr.activo = true
+    GROUP BY pr.id
+    HAVING COUNT(dp.id) >= p_min_pedidos
+    ORDER BY COUNT(dp.id) DESC, MAX(p.created_at) DESC
+    LIMIT p_limite;
+$$;
+
+-- Procedimiento almacenado para obtener las tiendas frecuentes de un usuario
+CREATE OR REPLACE FUNCTION sp_obtener_tiendas_frecuentes(
+    p_usuario_id INT,
+    p_dias INT DEFAULT 30,
+    p_min_pedidos INT DEFAULT 3,
+    p_limite INT DEFAULT 3
+)
+RETURNS TABLE (
+    id INT,
+    nombre VARCHAR,
+    direccion VARCHAR,
+    ciudad VARCHAR,
+    latitud NUMERIC,
+    longitud NUMERIC,
+    hora_apertura TIME,
+    hora_cierre TIME,
+    activo BOOLEAN,
+    created_at TIMESTAMPTZ
+) 
+LANGUAGE sql
+AS $$
+    SELECT 
+        c.id,
+        c.nombre,
+        c.direccion,
+        c.ciudad,
+        c.latitud,
+        c.longitud,
+        c.hora_apertura,
+        c.hora_cierre,
+        c.activo,
+        c.created_at
+    FROM cafeterias c
+    INNER JOIN pedidos p ON p.cafeteria_id = c.id
+    WHERE p.usuario_id = p_usuario_id
+      AND p.estado != 'CANCELADO'
+      AND p.created_at >= (NOW() - (p_dias || ' days')::INTERVAL)
+      AND c.activo = true
+    GROUP BY c.id
+    HAVING COUNT(p.id) >= p_min_pedidos
+    ORDER BY COUNT(p.id) DESC, MAX(p.created_at) DESC
+    LIMIT p_limite;
+$$;

@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos"
+method: GET
+examples: .resources/Listar Todos los Productos Activos.resources/examples
+order: 1789060945009

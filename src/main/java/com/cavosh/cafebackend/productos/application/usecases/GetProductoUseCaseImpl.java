@@ -13,12 +13,12 @@ import java.util.List;
 
 /** Implementación del caso de uso para obtener los productos.
  * Tiene los siguientes métodos:
- * - getAllActivoProductos(): Obtiene todos los productos activos.
  * - getProductosByCategoria(Integer categoriaId): Obtiene los productos por ID de categoría.
  * - getNuevoInProductos(): Obtiene todos los productos nuevos.
- * - getFrequenciaOrdernadosProductos(): Obtiene los productos ordenados por frecuencia de pedido.
  * - getProductoById(Integer id): Obtiene un producto por su ID.
  * - getCategorias(): Obtiene todas las categorías de productos.
+ * - searchProductos(String query): Busca productos por nombre o descripción.
+ * - getProductosFrecuentes(Integer usuarioId): Obtiene los productos frecuentes para un usuario específico.
  */
 @Service
 @RequiredArgsConstructor
@@ -55,15 +55,6 @@ public class GetProductoUseCaseImpl implements GetProductosUseCase {
     }
 
     /**
-     * Obtener una lista de productos ordenados por frecuencia de pedido
-     * @return Una lista de productos frecuentes
-     */
-    @Transactional(readOnly = true)
-    public List<Producto> getFrequenciaOrdernadosProductos() {
-        return productoRepository.findFrecuenteOrdenado();
-    }
-
-    /**
      * Obtener un producto mediante su ID
      * @param id - id del producto
      * @return un producto específico
@@ -81,5 +72,31 @@ public class GetProductoUseCaseImpl implements GetProductosUseCase {
     @Transactional(readOnly = true)
     public List<Categoria> getCategorias() {
         return productoRepository.findAllCategorias();
+    }
+
+    /**
+     * Buscar productos por nombre o descripción
+     * @param query - cadena de búsqueda: Busca productos cuyo nombre o descripción contenga la cadena proporcionada, ignorando mayúsculas y minúsculas.
+     * @return una lista de productos que coincidan con la búsqueda
+     */
+    @Transactional(readOnly = true)
+    public List<Producto> searchProductos(String query) {
+        if (query == null || query.trim().isBlank()) 
+            return productoRepository.findAllActivo();
+        
+        return productoRepository.searchProductos(query.trim());
+    }
+
+    /**
+     * Obtener una lista de productos frecuentes para un usuario específico
+     * @param usuarioId - Id del usuario
+     * @return la lista de productos frecuentes para el usuario
+     */
+    @Transactional(readOnly = true)
+    public List<Producto> getProductosFrecuentes(Integer usuarioId) {
+        if (usuarioId == null) 
+            return List.of();
+        
+        return productoRepository.findFrecuentesPorUsuario(usuarioId);
     }
 }

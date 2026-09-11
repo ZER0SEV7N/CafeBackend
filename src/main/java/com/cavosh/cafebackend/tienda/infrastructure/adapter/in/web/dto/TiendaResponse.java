@@ -15,8 +15,7 @@ public record TiendaResponse (
         BigDecimal latitud,
         BigDecimal longitud,
         String horaApertura,
-        boolean abierto,
-        boolean frecuente
+        boolean abierto
 ) {
     //Establecer formato de tiempo
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
@@ -32,8 +31,7 @@ public record TiendaResponse (
                 c.latitud(),
                 c.longitud(),
                 formateoHoras,
-                c.estaAbierto(ahora),
-                c.frecuente()
+                c.estaAbierto(ahora)
         );
     }
 }

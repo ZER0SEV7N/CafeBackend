@@ -24,7 +24,6 @@ public record ActualizarProductoRequest(
         BigDecimal precioBase,
 
         boolean nuevo,
-        boolean frecuente,
         boolean activo,
 
         List<Integer> escalaIds,

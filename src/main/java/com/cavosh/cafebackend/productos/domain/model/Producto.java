@@ -18,7 +18,6 @@ public record Producto(
         String imagenUrl,
         BigDecimal precioBase,
         boolean nuevo,
-        boolean frecuente,
         boolean activo,
         List<Escala> escalas,
         List<GrupoPersonalizacion> gruposPersonalizacion,

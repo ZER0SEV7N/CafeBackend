@@ -47,4 +47,17 @@ public class TiendaRepositoryAdapter implements TiendaRepositoryPort {
      * @return Una lista de cafeterías más elegidas.
      */
     public List<Cafeteria> findFrequentlyChosen() { return tiendaRepository.findByFrecuenteTrueAndActivoTrue().stream().map(mapper::toDomain).toList(); }
+
+    /**
+     * Busca todas las cafeterías más frecuentes por un usuario específico.
+     *
+     * @param usuarioId El ID del usuario.
+     * @return Una lista de cafeterías más frecuentes para el usuario.
+     */
+    public List<Cafeteria> findFrecuentesPorUsuario(Integer usuarioId) {
+        return tiendaRepository.findFrecuentesPorUsuario(usuarioId)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
 }

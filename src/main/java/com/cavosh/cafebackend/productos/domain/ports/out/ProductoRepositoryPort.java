@@ -15,7 +15,8 @@ public interface ProductoRepositoryPort {
     List<Producto> findAllActivo();
     List<Producto> findByCategoriaId(Integer categoriaId);
     List<Producto> findNuevo();
-    List<Producto> findFrecuenteOrdenado();
+    List<Producto> searchProductos(String query);
+    List<Producto> findFrecuentesPorUsuario(Integer usuarioId);
     List<Categoria> findAllCategorias();
     boolean existsCategoriaById(Integer categoriaId);
     boolean existsById(Integer id);
