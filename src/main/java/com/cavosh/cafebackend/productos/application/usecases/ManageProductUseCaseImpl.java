@@ -30,7 +30,7 @@ public class ManageProductUseCaseImpl implements ManageProductUseCase {
      */
     @Transactional
     public Producto saveProducto(SaveProductoCommand command) {
-        if(productoRepository.existsCategoriaById(command.categoriaId()))
+        if(!productoRepository.existsCategoriaById(command.categoriaId()))
             throw new ResourceNotFoundException("Categoria no encontrada con id: " + command.categoriaId());
 
         Instant now = Instant.now();
@@ -63,7 +63,7 @@ public class ManageProductUseCaseImpl implements ManageProductUseCase {
         Producto existente = productoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + id));
 
-        if(productoRepository.existsCategoriaById(command.categoriaId()))
+        if(!productoRepository.existsCategoriaById(command.categoriaId()))
             throw new ResourceNotFoundException("Categoria no encontrada con id: " + command.categoriaId());
 
         Producto actualizado = new Producto(

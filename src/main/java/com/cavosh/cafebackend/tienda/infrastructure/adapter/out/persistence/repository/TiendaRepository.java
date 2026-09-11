@@ -13,7 +13,6 @@ import java.util.List;
 public interface TiendaRepository extends JpaRepository<TiendaEntity, Integer> {
     List<TiendaEntity> findByActivoTrue();
     List<TiendaEntity> findByCiudadIgnoreCaseAndActivoTrue(String ciudad);
-    List<TiendaEntity> findByFrecuenteTrueAndActivoTrue();
 
     @Query(value = "SELECT * FROM sp_obtener_tiendas_frecuentes(:usuarioId, 30, 3, 3)", nativeQuery = true)
     List<TiendaEntity> findFrecuentesPorUsuario(@Param("usuarioId") Integer usuarioId);

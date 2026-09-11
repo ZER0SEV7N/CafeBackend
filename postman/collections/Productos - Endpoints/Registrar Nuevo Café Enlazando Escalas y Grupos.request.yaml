@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"categoriaId\": 2,\r
+
+    \  \"nombre\": \"Flat White\",\r
+
+    \  \"descripcion\": \"Doble carga de espresso con microespuma aterciopelada de leche.\",\r
+
+    \  \"imagenUrl\": \"https://images.unsplash.com/photo-1577968897966-3d4325b36b61\",\r
+
+    \  \"precioBase\": 3.80,\r
+
+    \  \"nuevo\": true,\r
+
+    \  \"escalaIds\": [1, 2, 3],\r
+
+    \  \"grupoPersonalizacionIds\": [1]\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Registrar Nuevo Café Enlazando Escalas y Grupos.resources/examples
+order: 4502393001559513

@@ -11,10 +11,10 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./init-db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
-      - ./init-db/data.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+      - ./init-db/basedatos.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./init-db/datos.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U cavosh_user -d cavosh_db"]
+      test: ["CMD-SHELL", "pg_isready -U cavosh -d cavoshDB"]
       interval: 5s
       timeout: 5s
       retries: 5

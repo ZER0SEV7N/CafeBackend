@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -94,7 +95,10 @@ public interface ProductoDoc {
             @ApiResponse(responseCode = "404", description = "Producto no encontrado")
     })
     ResponseEntity<ResponseGlobal<Void>> changeState(
-            @Parameter(description = "ID del producto", example = "1") Integer id,
-            @RequestParam boolean activo
+            @Parameter(description = "ID del producto", example = "1") 
+            @PathVariable("id") Integer id,
+
+            @Parameter(description = "Nuevo estado (true = activo, false = inactivo)", example = "false") 
+            @RequestParam("activo") boolean activo
     );
 }

@@ -133,8 +133,6 @@ CREATE TABLE producto (
 
 -- Index para buscar más rápido los productos por categoria
 CREATE INDEX idx_producto_categoria ON producto(categoria_id);
-CREATE INDEX idx_pedidos_usuario_estado_fecha ON pedidos(usuario_id, estado, created_at);
-CREATE INDEX idx_detalles_pedido_pedido_producto ON detalles_pedido(pedido_id, producto_id);
 
 -- Tabla de la relación entre productos y escalas
 CREATE TABLE producto_escalas (
@@ -197,6 +195,9 @@ CREATE TABLE detalles_pedido (
     precio_unitario NUMERIC(10, 2) NOT NULL,
     subtotal_item NUMERIC(10, 2) NOT NULL
 );
+
+CREATE INDEX idx_pedidos_usuario_estado_fecha ON pedidos(usuario_id, estado, created_at);
+CREATE INDEX idx_detalles_pedido_pedido_producto ON detalles_pedido(pedido_id, producto_id);
 
 -- Tabla relacional entre detalles del pedido y las opciones de personalizacion seleccionadas
 CREATE TABLE detalle_opciones_seleccionadas (

@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalTime;
 
+/** 
+ * Entidad de la tienda/cafetería.
+ */
 @Entity
 @Table(name= "cafeterias")
 @Getter
@@ -40,9 +43,6 @@ public class TiendaEntity {
 
     @Column(name = "hora_cierre", nullable = false)
     private LocalTime horaCierre;
-
-    @Column(nullable = false)
-    private boolean frecuente;
 
     @Column(nullable = false)
     private boolean activo;

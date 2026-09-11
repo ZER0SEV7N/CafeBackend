@@ -20,7 +20,7 @@ public interface ProductoMapper {
 
     //OpcionPersonalizacion
     OpcionPersonalizacion toDomain(OpcionPersonalizacionEntity entity);
-    @Mapping(target = "grupoId", ignore = true)
+    @Mapping(target = "grupo", ignore = true)
     OpcionPersonalizacionEntity toEntity(OpcionPersonalizacion domain);
 
     //GrupoPersonalizacion

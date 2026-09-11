@@ -1,0 +1,56 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/escalas"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 01:19:14 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Escalas obtenidas con éxito",
+        "data": [
+          {
+            "id": 1,
+            "nombre": "Pequeño",
+            "volumenMl": 250,
+            "recargoPrecio": 0
+          },
+          {
+            "id": 2,
+            "nombre": "Mediano",
+            "volumenMl": 350,
+            "recargoPrecio": 0.5
+          },
+          {
+            "id": 3,
+            "nombre": "Grande",
+            "volumenMl": 450,
+            "recargoPrecio": 1
+          },
+          {
+            "id": 4,
+            "nombre": "Extra Grande",
+            "volumenMl": 600,
+            "recargoPrecio": 2
+          }
+        ],
+        "timestamp": "2026-09-11T01:19:14.844065100Z"
+      }
+order: 1789089558829

@@ -1,0 +1,44 @@
+$kind: http-request
+url: "{{baseUrl}}/api/grupos-personalizacion"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nombreGrupo\": \"Sirope / Sabor\",\r
+
+    \  \"seleccionMultiple\": true,\r
+
+    \  \"obligatorio\": false,\r
+
+    \  \"opciones\": [\r
+
+    \    {\r
+
+    \      \"nombre\": \"Vainilla francesa\",\r
+
+    \      \"recargoPrecio\": 0.60,\r
+
+    \      \"porDefecto\": false\r
+
+    \    },\r
+
+    \    {\r
+
+    \      \"nombre\": \"Avellana tostada\",\r
+
+    \      \"recargoPrecio\": 0.60,\r
+
+    \      \"porDefecto\": false\r
+
+    \    }\r
+
+    \  ]\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Crear Grupo de Personalización con Opciones (Requiere ADMIN).resources/examples
+order: 4501674981934696

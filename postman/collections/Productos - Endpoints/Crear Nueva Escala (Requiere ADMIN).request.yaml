@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/api/escalas"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nombre\": \"Jumbo\",\r
+
+    \  \"volumenMl\": 750,\r
+
+    \  \"recargoPrecio\": 2.50\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Crear Nueva Escala (Requiere ADMIN).resources/examples
+order: 4427162029718697

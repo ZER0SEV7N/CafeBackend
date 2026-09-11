@@ -1,5 +1,0 @@
-$kind: http-request
-url: "{{baseUrl}}/api/productos/frecuentes"
-method: GET
-examples: .resources/Seccion Frecuentes de la pantalla Home.resources/examples
-order: 4273163469998836

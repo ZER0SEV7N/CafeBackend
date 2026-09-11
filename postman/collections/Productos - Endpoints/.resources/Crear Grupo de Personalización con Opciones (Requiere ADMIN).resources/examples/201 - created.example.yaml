@@ -1,0 +1,85 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/grupos-personalizacion"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"nombreGrupo\": \"Sirope / Sabor\",\r
+
+      \  \"seleccionMultiple\": true,\r
+
+      \  \"obligatorio\": false,\r
+
+      \  \"opciones\": [\r
+
+      \    {\r
+
+      \      \"nombre\": \"Vainilla francesa\",\r
+
+      \      \"recargoPrecio\": 0.60,\r
+
+      \      \"porDefecto\": false\r
+
+      \    },\r
+
+      \    {\r
+
+      \      \"nombre\": \"Avellana tostada\",\r
+
+      \      \"recargoPrecio\": 0.60,\r
+
+      \      \"porDefecto\": false\r
+
+      \    }\r
+
+      \  ]\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 01:27:59 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Grupo creado con éxito",
+        "data": {
+          "id": 5,
+          "nombreGrupo": "Sirope / Sabor",
+          "seleccionMultiple": true,
+          "obligatorio": false,
+          "opciones": [
+            {
+              "id": 12,
+              "nombre": "Vainilla francesa",
+              "recargoPrecio": 0.6,
+              "porDefecto": false
+            },
+            {
+              "id": 13,
+              "nombre": "Avellana tostada",
+              "recargoPrecio": 0.6,
+              "porDefecto": false
+            }
+          ]
+        },
+        "timestamp": "2026-09-11T01:27:59.174816600Z"
+      }
+order: 1789090084644

@@ -60,9 +60,8 @@ public class GrupoPersonalizacionRepositoryAdapter implements GrupoPersonalizaci
         GrupoPersonalizacionEntity entity = mapper.toEntity(grupo);
 
         //Mantiene la consistencia de llaves foráneas para las opciones secundarias
-        if (entity.getOpciones() != null && entity.getId() != null)
-            entity.getOpciones().forEach(opcion -> opcion.setGrupoId(entity.getId()));
-
+        if (entity.getOpciones() != null) 
+            entity.getOpciones().forEach(opcion -> opcion.setGrupo(entity));
 
         GrupoPersonalizacionEntity guardado = grupoRepository.save(entity);
         return mapper.toDomain(guardado);

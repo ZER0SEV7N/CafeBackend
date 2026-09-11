@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/escalas"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"nombre\": \"Jumbo\",\r
+
+      \  \"volumenMl\": 750,\r
+
+      \  \"recargoPrecio\": 2.50\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 01:21:54 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Escala creada con éxito",
+        "data": {
+          "id": 5,
+          "nombre": "Jumbo",
+          "volumenMl": 750,
+          "recargoPrecio": 2.5
+        },
+        "timestamp": "2026-09-11T01:21:54.248053500Z"
+      }
+order: 1789089718583

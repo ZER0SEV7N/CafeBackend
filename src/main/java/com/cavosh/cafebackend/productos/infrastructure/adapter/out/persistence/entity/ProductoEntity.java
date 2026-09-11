@@ -42,9 +42,6 @@ public class ProductoEntity {
     @Column(name = "nuevo", nullable = false)
     private boolean nuevo;
 
-    @Column(name = "frecuente", nullable = false)
-    private boolean frecuente;
-
     @Column(nullable = false)
     private boolean activo;
 

@@ -1,0 +1,32 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"categoriaId\": 1,\r
+
+    \  \"nombre\": \"Flat White Especial\",\r
+
+    \  \"descripcion\": \"Doble ristretto con microespuma de leche entera y arte latte.\",\r
+
+    \  \"imagenUrl\": \"https://images.unsplash.com/photo-1577968897966-3d4325b36b61\",\r
+
+    \  \"precioBase\": 4.20,\r
+
+    \  \"nuevo\": false,\r
+
+    \  \"activo\": true,\r
+
+    \  \"escalaIds\": [1, 2],\r
+
+    \  \"grupoPersonalizacionIds\": [1]\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Actualizar un cafe existente.resources/examples
+order: 4503248125833836

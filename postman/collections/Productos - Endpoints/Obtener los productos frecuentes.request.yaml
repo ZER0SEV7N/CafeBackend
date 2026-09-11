@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos/frecuentes"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: ""
+examples: .resources/Obtener los productos frecuentes.resources/examples
+order: 4273163469998836

@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/grupos-personalizacion"
+method: GET
+examples: .resources/Listar Grupos de Personalización.resources/examples
+order: 4496009535191195

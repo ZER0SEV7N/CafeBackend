@@ -20,8 +20,9 @@ public class OpcionPersonalizacionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "grupo_id", nullable = false)
-    private Integer grupoId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grupo_id", nullable = false)
+    private GrupoPersonalizacionEntity grupo;
 
     @Column(nullable = false, length = 100)
     private String nombre;

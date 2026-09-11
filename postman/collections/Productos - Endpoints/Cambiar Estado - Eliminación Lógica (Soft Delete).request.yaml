@@ -1,0 +1,14 @@
+$kind: http-request
+name: Cambiar Estado / Eliminación Lógica (Soft Delete)
+url: |
+  {{baseUrl}}/api/productos/1/estado?activo=false
+method: PATCH
+queryParams:
+  activo: |
+    false
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Cambiar Estado - Eliminación Lógica (Soft Delete).resources/examples
+order: 4502646950279670

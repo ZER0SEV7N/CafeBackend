@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/api/escalas"
+method: GET
+examples: .resources/Listar Escalas Disponibles.resources/examples
+order: 4403916141682915

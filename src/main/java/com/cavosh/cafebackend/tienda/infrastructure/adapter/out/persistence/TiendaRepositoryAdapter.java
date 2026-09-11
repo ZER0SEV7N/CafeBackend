@@ -42,13 +42,6 @@ public class TiendaRepositoryAdapter implements TiendaRepositoryPort {
     public List<Cafeteria> findByCiudad(String city) { return tiendaRepository.findByCiudadIgnoreCaseAndActivoTrue(city).stream().map(mapper::toDomain).toList(); }
 
     /**
-     * Busca todas las cafeterías más elegidas.
-     *
-     * @return Una lista de cafeterías más elegidas.
-     */
-    public List<Cafeteria> findFrequentlyChosen() { return tiendaRepository.findByFrecuenteTrueAndActivoTrue().stream().map(mapper::toDomain).toList(); }
-
-    /**
      * Busca todas las cafeterías más frecuentes por un usuario específico.
      *
      * @param usuarioId El ID del usuario.

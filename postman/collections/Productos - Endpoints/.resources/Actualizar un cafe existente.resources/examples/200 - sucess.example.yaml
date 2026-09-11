@@ -1,0 +1,122 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/productos/1"
+  method: PUT
+  body:
+    type: json
+    content: "{\r
+
+      \  \"categoriaId\": 1,\r
+
+      \  \"nombre\": \"Flat White Especial\",\r
+
+      \  \"descripcion\": \"Doble ristretto con microespuma de leche entera y arte latte.\",\r
+
+      \  \"imagenUrl\": \"https://images.unsplash.com/photo-1577968897966-3d4325b36b61\",\r
+
+      \  \"precioBase\": 4.20,\r
+
+      \  \"nuevo\": false,\r
+
+      \  \"activo\": true,\r
+
+      \  \"escalaIds\": [1, 2],\r
+
+      \  \"grupoPersonalizacionIds\": [1]\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 01:49:21 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Producto actualizado con éxito",
+        "data": {
+          "id": 1,
+          "categoriaId": 1,
+          "nombre": "Flat White Especial",
+          "descripcion": "Doble ristretto con microespuma de leche entera y arte latte.",
+          "imagenUrl": "https://images.unsplash.com/photo-1577968897966-3d4325b36b61",
+          "precioBase": 4.2,
+          "nuevo": false,
+          "escalas": [
+            {
+              "id": 1,
+              "nombre": "Pequeño",
+              "volumenMl": 250,
+              "recargoPrecio": 0
+            },
+            {
+              "id": 2,
+              "nombre": "Mediano",
+              "volumenMl": 350,
+              "recargoPrecio": 0.5
+            }
+          ],
+          "gruposPersonalizacion": [
+            {
+              "id": 1,
+              "nombreGrupo": "Leche",
+              "seleccionMultiple": false,
+              "obligatorio": true,
+              "opciones": [
+                {
+                  "id": 1,
+                  "nombre": "Leche entera",
+                  "recargoPrecio": 0,
+                  "porDefecto": true
+                },
+                {
+                  "id": 2,
+                  "nombre": "Leche deslactosada",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 3,
+                  "nombre": "Leche de soya",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 4,
+                  "nombre": "Leche descremada",
+                  "recargoPrecio": 0,
+                  "porDefecto": false
+                },
+                {
+                  "id": 5,
+                  "nombre": "Leche de almendras",
+                  "recargoPrecio": 0.7,
+                  "porDefecto": false
+                },
+                {
+                  "id": 6,
+                  "nombre": "Leche de avena",
+                  "recargoPrecio": 0.7,
+                  "porDefecto": false
+                }
+              ]
+            }
+          ]
+        },
+        "timestamp": "2026-09-11T01:49:21.661839900Z"
+      }
+order: 1789091365351

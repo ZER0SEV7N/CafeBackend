@@ -1,0 +1,116 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/grupos-personalizacion"
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Fri, 11 Sep 2026 01:23:00 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Grupos obtenidos con éxito",
+        "data": [
+          {
+            "id": 1,
+            "nombreGrupo": "Leche",
+            "seleccionMultiple": false,
+            "obligatorio": true,
+            "opciones": [
+              {
+                "id": 1,
+                "nombre": "Leche entera",
+                "recargoPrecio": 0,
+                "porDefecto": true
+              },
+              {
+                "id": 2,
+                "nombre": "Leche deslactosada",
+                "recargoPrecio": 0,
+                "porDefecto": false
+              },
+              {
+                "id": 3,
+                "nombre": "Leche de soya",
+                "recargoPrecio": 0,
+                "porDefecto": false
+              },
+              {
+                "id": 4,
+                "nombre": "Leche descremada",
+                "recargoPrecio": 0,
+                "porDefecto": false
+              },
+              {
+                "id": 5,
+                "nombre": "Leche de almendras",
+                "recargoPrecio": 0.7,
+                "porDefecto": false
+              },
+              {
+                "id": 6,
+                "nombre": "Leche de avena",
+                "recargoPrecio": 0.7,
+                "porDefecto": false
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "nombreGrupo": "Crema Batida",
+            "seleccionMultiple": false,
+            "obligatorio": false,
+            "opciones": [
+              {
+                "id": 7,
+                "nombre": "Sin crema batida",
+                "recargoPrecio": 0,
+                "porDefecto": true
+              },
+              {
+                "id": 8,
+                "nombre": "Con crema batida",
+                "recargoPrecio": 0.5,
+                "porDefecto": false
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "nombreGrupo": "Cafeina",
+            "seleccionMultiple": false,
+            "obligatorio": false,
+            "opciones": [
+              {
+                "id": 9,
+                "nombre": "Con cafeina",
+                "recargoPrecio": 0,
+                "porDefecto": true
+              },
+              {
+                "id": 10,
+                "nombre": "Sin cafeina",
+                "recargoPrecio": 0,
+                "porDefecto": false
+              }
+            ]
+          }
+        ],
+        "timestamp": "2026-09-11T01:23:00.788665200Z"
+      }
+order: 1789089784326

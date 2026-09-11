@@ -15,7 +15,7 @@ response:
     x-frame-options: DENY
     content-type: application/json
     transfer-encoding: chunked
-    date: Thu, 10 Sep 2026 23:34:59 GMT
+    date: Fri, 11 Sep 2026 00:56:19 GMT
     keep-alive: timeout=60
     connection: keep-alive
   body:
@@ -24,7 +24,7 @@ response:
       {
         "success": true,
         "status": 200,
-        "message": "Productos frecuentes obtenidos con éxito",
+        "message": "Productos frecuentes del usuario",
         "data": [
           {
             "id": 1,
@@ -32,19 +32,9 @@ response:
             "nombre": "Caramel Macchiato",
             "imagenUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop",
             "precioBase": 4,
-            "nuevo": true,
-            "frecuente": true
-          },
-          {
-            "id": 5,
-            "categoriaId": 1,
-            "nombre": "Café Moca",
-            "imagenUrl": "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop",
-            "precioBase": 3.8,
-            "nuevo": false,
-            "frecuente": true
+            "nuevo": true
           }
         ],
-        "timestamp": "2026-09-10T23:34:59.730482700Z"
+        "timestamp": "2026-09-11T00:56:19.940751900Z"
       }
-order: 1789083306799
+order: 2990573108205767

@@ -188,7 +188,7 @@ public class ProductoController implements ProductoDoc {
      */
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ResponseGlobal<ProductoDetalleResponse>> updateProducto(@PathVariable Integer id, @Valid @RequestBody ActualizarProductoRequest request) {
+    public ResponseEntity<ResponseGlobal<ProductoDetalleResponse>> updateProducto(@PathVariable("id") Integer id, @Valid @RequestBody ActualizarProductoRequest request) {
         var command = new ManageProductUseCase.UpdateProductoCommand(
                 request.categoriaId(),
                 request.nombre(),
@@ -213,7 +213,7 @@ public class ProductoController implements ProductoDoc {
      */
     @PatchMapping("/{id}/estado")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ResponseGlobal<Void>> changeState(@PathVariable Integer id, @RequestParam boolean activo) {
+    public ResponseEntity<ResponseGlobal<Void>> changeState(@PathVariable("id") Integer id, @RequestParam("activo") boolean activo) {
         manageProductUseCase.changeState(id, activo);
         return ResponseEntity.ok(ResponseGlobal.success(null, "Estado del producto modificado con éxito"));
     }
