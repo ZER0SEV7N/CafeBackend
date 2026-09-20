@@ -1,0 +1,98 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/pedidos"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"cafeteriaId\": 1,\r
+
+      \  \"tipoEntrega\": \"RECOGIDA_PROGRAMADA\",\r
+
+      \  \"fechaRecojo\": \"2026-09-20\",\r
+
+      \  \"horaRecojo\": \"10:30:00\",\r
+
+      \  \"metodoPago\": \"CASH\",\r
+
+      \  \"referenciaPago\": null,\r
+
+      \  \"codigoCupon\": null,\r
+
+      \  \"items\": [\r
+
+      \    {\r
+
+      \      \"productoId\": 1,\r
+
+      \      \"escalaId\": 1,\r
+
+      \      \"opcionIds\": [1],\r
+
+      \      \"cantidad\": 2\r
+
+      \    }\r
+
+      \  ]\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Sun, 20 Sep 2026 02:30:23 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Pedido generado con éxito",
+        "data": {
+          "id": 1,
+          "codigoOrden": "799",
+          "cafeteriaId": 1,
+          "tipoEntrega": "RECOGIDA_PROGRAMADA",
+          "fechaRecojo": "2026-09-20",
+          "horaRecojo": "10:30:00",
+          "metodoPago": "CASH",
+          "referenciaPago": null,
+          "estado": "PEDIDO_REALIZADO",
+          "subtotal": 8,
+          "descuento": 0,
+          "total": 8,
+          "createdAt": "2026-09-20T02:30:23.224899700Z",
+          "items": [
+            {
+              "id": 1,
+              "productoId": 1,
+              "nombreProducto": "Caramel Macchiato",
+              "nombreEscala": "Pequeño",
+              "cantidad": 2,
+              "precioUnitario": 4,
+              "subtotalItem": 8,
+              "opciones": [
+                {
+                  "nombreGrupo": "Leche",
+                  "nombreOpcion": "Leche entera",
+                  "recargo": 0
+                }
+              ]
+            }
+          ]
+        },
+        "timestamp": "2026-09-20T02:30:23.295668700Z"
+      }
+order: 1789871430575

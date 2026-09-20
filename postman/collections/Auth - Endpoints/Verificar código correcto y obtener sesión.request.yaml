@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/verificar-codigo"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"danielsinger07@hotmail.com\",\r
+
+    \    \"codigo\": \"4457\"\r
+
+    }"
+examples: .resources/Verificar código correcto y obtener sesión.resources/examples
+order: 4446033756611601

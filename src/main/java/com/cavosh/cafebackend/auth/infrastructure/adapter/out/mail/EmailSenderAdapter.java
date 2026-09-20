@@ -49,4 +49,29 @@ public class EmailSenderAdapter implements EmailSenderPort {
             log.error("Fallo al enviar correo a {}: {}", destinatario, e.getMessage());
         }
     }
+
+    public void sendVerificationCodeEmail(String toEmail, String code) {
+        String subject = "Código de verificación - Cavosh Café";
+        String content = """
+            <div style="font-family: Arial, sans-serif; max-width: 500px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                <h2 style="color: #2c3e50; text-align: center;">¡Bienvenido a Cavosh Café! ☕</h2>
+                <p style="font-size: 14px; color: #555;">Ingresa el siguiente código de 4 dígitos en la aplicación para verificar tu cuenta:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <span style="font-size: 32px; font-weight: bold; letter-spacing: 10px; color: #d35400; background-color: #fbeee6; padding: 12px 24px; border-radius: 8px;">%s</span>
+                </div>
+                <p style="font-size: 12px; color: #888; text-align: center;">Este código caducará en 15 minutos. Si no solicitaste esta cuenta, puedes ignorar este mensaje.</p>
+            </div>
+            """.formatted(code);
+
+        try {
+            jakarta.mail.internet.MimeMessage message = mailSender.createMimeMessage();
+            org.springframework.mail.javamail.MimeMessageHelper helper = new org.springframework.mail.javamail.MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(toEmail);
+            helper.setSubject(subject);
+            helper.setText(content, true);
+            mailSender.send(message);
+        } catch (Exception e) {
+            throw new RuntimeException("Error enviando el correo con el código de verificación", e);
+        }
+    }
 }

@@ -10,7 +10,15 @@ import com.cavosh.cafebackend.auth.domain.model.Usuario;
  */
 public interface RegisterUseCase {
 
-    record RegisterCommand(String fullName,  String email,  String password, String confirmPassword) {}
+    record RegisterCommand(
+            String fullname,
+            String email,
+            String password
+    ) {}
 
-    Usuario register(RegisterCommand command);
+    void register(RegisterCommand command);
+
+    Usuario verifyCode(String email, String codigo);
+
+    void resendCode(String email);
 }

@@ -4,6 +4,7 @@ import com.cavosh.cafebackend.auth.domain.port.in.ProfileUseCase;
 import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.UpdateProfileRequest;
 import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.dto.UserProfileResponse;
 import com.cavosh.cafebackend.global.infrastructure.web.response.ResponseGlobal;
+import com.cavosh.cafebackend.auth.infrastructure.adapter.in.web.doc.UserDoc;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user/profile")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserDoc {
 
     private final ProfileUseCase profileUseCase;
 

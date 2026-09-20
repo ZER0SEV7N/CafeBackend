@@ -223,6 +223,125 @@ CREATE TABLE tokens_recuperacion (
 
 -- Índice para la busqueda de tokens
 CREATE INDEX idx_tokens_recuperacion_token ON tokens_recuperacion(token);
+CREATE INDEX idx_codigos_verif_usuario ON codigos_verificacion(usuario_id, usado);
+
+-- Tabla para los codigos de verificacion
+CREATE TABLE IF NOT EXISTS codigos_verificacion (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    codigo VARCHAR(4) NOT NULL,
+    intentos_fallidos INT DEFAULT 0,
+    max_intentos INT DEFAULT 3,
+    expira_en TIMESTAMP NOT NULL,
+    usado BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_codigo_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Procedimiento almacenado para verificar el código OTP
+CREATE OR REPLACE FUNCTION sp_verificar_codigo_otp(
+    p_email VARCHAR,
+    p_codigo VARCHAR
+) RETURNS TABLE (
+    resultado_codigo INT, 
+    mensaje VARCHAR,
+    usuario_id INT
+) AS $$
+
+DECLARE
+    v_usuario_id INT;
+    v_activo BOOLEAN;
+    v_codigo_id INT;
+    v_codigo_valido VARCHAR;
+    v_expira_en TIMESTAMP;
+    v_intentos INT;
+    v_max_intentos INT;
+BEGIN
+    -- Buscar usuario
+    SELECT u.id, u.activo INTO v_usuario_id, v_activo 
+    FROM usuarios u 
+    WHERE UPPER(u.email) = UPPER(p_email);
+
+    IF NOT FOUND THEN
+        RETURN QUERY SELECT 1, 'Usuario no encontrado'::VARCHAR, NULL::INT;
+        RETURN;
+    END IF;
+
+    IF v_activo THEN
+        RETURN QUERY SELECT 0, 'La cuenta ya está activa'::VARCHAR, v_usuario_id;
+        RETURN;
+    END IF;
+
+    -- Buscar el último código activo no usado (calificado con cv.)
+    SELECT cv.id, cv.codigo, cv.expira_en, cv.intentos_fallidos, cv.max_intentos
+    INTO v_codigo_id, v_codigo_valido, v_expira_en, v_intentos, v_max_intentos
+    FROM codigos_verificacion cv
+    WHERE cv.usuario_id = v_usuario_id AND cv.usado = FALSE
+    ORDER BY cv.created_at DESC
+    LIMIT 1;
+
+    IF NOT FOUND THEN
+        RETURN QUERY SELECT 2, 'No hay códigos de verificación vigentes. Solicita uno nuevo'::VARCHAR, v_usuario_id;
+        RETURN;
+    END IF;
+
+    -- Verificar si expiró por tiempo
+    IF v_expira_en < NOW() THEN
+        UPDATE codigos_verificacion SET usado = TRUE WHERE id = v_codigo_id;
+        RETURN QUERY SELECT 2, 'El código ha expirado'::VARCHAR, v_usuario_id;
+        RETURN;
+    END IF;
+
+    -- Verificar intentos máximos
+    IF v_intentos >= v_max_intentos THEN
+        UPDATE codigos_verificacion SET usado = TRUE WHERE id = v_codigo_id;
+        RETURN QUERY SELECT 3, 'Superaste el límite de intentos. Solicita un nuevo código'::VARCHAR, v_usuario_id;
+        RETURN;
+    END IF;
+
+    -- Validar coincidencia
+    IF v_codigo_valido <> p_codigo THEN
+        UPDATE codigos_verificacion 
+        SET intentos_fallidos = intentos_fallidos + 1 
+        WHERE id = v_codigo_id;
+        RETURN QUERY SELECT 4, 'Código incorrecto'::VARCHAR, v_usuario_id;
+        RETURN;
+    END IF;
+
+    -- Marcar código como usado y activar usuario
+    UPDATE codigos_verificacion SET usado = TRUE WHERE id = v_codigo_id;
+    UPDATE usuarios SET activo = TRUE, updated_at = NOW() WHERE id = v_usuario_id;
+
+    RETURN QUERY SELECT 0, 'Verificación exitosa'::VARCHAR, v_usuario_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Procedimiento almacenado para generar un nuevo código OTP
+CREATE OR REPLACE FUNCTION sp_generar_codigo_otp(
+    p_email VARCHAR,
+    p_nuevo_codigo VARCHAR,
+    p_minutos_validez INT DEFAULT 15
+) RETURNS INT AS $$
+DECLARE
+    v_usuario_id INT;
+BEGIN
+    SELECT id INTO v_usuario_id FROM usuarios WHERE UPPER(email) = UPPER(p_email);
+    IF NOT FOUND THEN
+        RETURN NULL;
+    END IF;
+
+    -- Invalida cualquier código anterior que haya quedado pendiente
+    UPDATE codigos_verificacion 
+    SET usado = TRUE 
+    WHERE usuario_id = v_usuario_id AND usado = FALSE;
+
+    -- Inserta el nuevo código
+    INSERT INTO codigos_verificacion (usuario_id, codigo, expira_en)
+    VALUES (v_usuario_id, p_nuevo_codigo, NOW() + (p_minutos_validez || ' minutes')::INTERVAL);
+
+    RETURN v_usuario_id;
+END;
+$$ LANGUAGE plpgsql;
 
 -- Procedimiento almacenado para obtener los productos más frecuentes de un usuario
 CREATE OR REPLACE FUNCTION sp_obtener_productos_frecuentes(

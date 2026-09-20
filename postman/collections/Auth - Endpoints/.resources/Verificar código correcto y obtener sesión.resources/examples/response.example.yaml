@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/auth/verificar-codigo"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \    \"email\": \"danielsinger07@hotmail.com\",\r
+
+      \    \"codigo\": \"4457\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Sun, 20 Sep 2026 02:23:29 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 200,
+        "message": "Cuenta verificada con éxito",
+        "data": {
+          "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5pZWxzaW5nZXIwN0Bob3RtYWlsLmNvbSIsImZ1bGxuYW1lIjoiRGFuaWVsIFNpbmdlciIsInVpZCI6NSwicm9sIjoiQ0xJRU5URSIsImlhdCI6MTc4OTg3MTAwOSwiZXhwIjoxNzg5OTU3NDA5fQ.unoWU4lp1Vl7XwH-gpH3vraB098C0DnhR5CwjDDwreSyF5_K7qzjZxs7-Bi-PnDuwN7bYLRH1T10lkD1W-AMQg",
+          "id": 5,
+          "fullName": "Daniel Singer",
+          "email": "danielsinger07@hotmail.com",
+          "role": "CLIENTE",
+          "rewardPoints": 0
+        },
+        "timestamp": "2026-09-20T02:23:29.204974700Z"
+      }
+order: 1789871014926

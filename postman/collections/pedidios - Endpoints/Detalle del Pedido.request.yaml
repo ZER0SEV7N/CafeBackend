@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/api/pedidos/1"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Detalle del Pedido.resources/examples
+order: 80020554352348

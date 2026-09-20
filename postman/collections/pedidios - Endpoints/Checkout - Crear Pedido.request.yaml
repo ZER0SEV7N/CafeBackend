@@ -1,0 +1,45 @@
+$kind: http-request
+name: Checkout / Crear Pedido
+url: "{{baseUrl}}/api/pedidos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"cafeteriaId\": 1,\r
+
+    \  \"tipoEntrega\": \"RECOGIDA_PROGRAMADA\",\r
+
+    \  \"fechaRecojo\": \"2026-09-20\",\r
+
+    \  \"horaRecojo\": \"10:30:00\",\r
+
+    \  \"metodoPago\": \"CASH\",\r
+
+    \  \"referenciaPago\": null,\r
+
+    \  \"codigoCupon\": null,\r
+
+    \  \"items\": [\r
+
+    \    {\r
+
+    \      \"productoId\": 1,\r
+
+    \      \"escalaId\": 1,\r
+
+    \      \"opcionIds\": [1],\r
+
+    \      \"cantidad\": 2\r
+
+    \    }\r
+
+    \  ]\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{tokenUsuario}}"
+examples: .resources/Checkout - Crear Pedido.resources/examples
+order: 1789871261189

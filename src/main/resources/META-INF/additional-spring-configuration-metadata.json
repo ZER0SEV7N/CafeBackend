@@ -13,5 +13,20 @@
     "name": "spring.docker.compose.mode",
     "type": "java.lang.String",
     "description": "A description for 'spring.docker.compose.mode'"
+  },
+  {
+    "name": "app.security.card-secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.card-secret-key'"
+  },
+  {
+    "name": "app.security.card-secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.card-secret-key'"
+  },
+  {
+    "name": "app.security.card-secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.card-secret-key'"
   }
 ]}

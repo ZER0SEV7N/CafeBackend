@@ -1,0 +1,5 @@
+$kind: http-request
+url: ""
+method: GET
+examples: .resources/Historial de Pedidos.resources/examples
+order: 1079711409700367

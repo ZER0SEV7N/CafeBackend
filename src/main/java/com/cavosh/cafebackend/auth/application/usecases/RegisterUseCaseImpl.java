@@ -1,13 +1,23 @@
 package com.cavosh.cafebackend.auth.application.usecases;
 
+import com.cavosh.cafebackend.auth.domain.model.AuthProveedor;
+import com.cavosh.cafebackend.auth.domain.model.Rol;
 import com.cavosh.cafebackend.auth.domain.model.Usuario;
 import com.cavosh.cafebackend.auth.domain.port.in.RegisterUseCase;
+import com.cavosh.cafebackend.auth.domain.port.out.CodigoVerificacionRepositoryPort;
+import com.cavosh.cafebackend.auth.domain.port.out.EmailSenderPort;
 import com.cavosh.cafebackend.auth.domain.port.out.PasswordEncoderPort;
 import com.cavosh.cafebackend.auth.domain.port.out.UsuarioRepositoryPort;
 import com.cavosh.cafebackend.global.domain.exception.AlreadyExistsException;
 import com.cavosh.cafebackend.global.domain.exception.BusinessRuleException;
+import com.cavosh.cafebackend.global.domain.exception.ResourceNotFoundException;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import java.security.SecureRandom;
+import java.time.Instant;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +29,10 @@ import org.springframework.stereotype.Service;
 public class RegisterUseCaseImpl implements RegisterUseCase {
 
     private final UsuarioRepositoryPort usuarioRepository;
-    private final PasswordEncoderPort passwordEncoder;
+    private final CodigoVerificacionRepositoryPort codigoVerificacionPort;
+    private final PasswordEncoderPort passwordEncoderPort;
+    private final EmailSenderPort emailSenderPort;
+    private final SecureRandom secureRandom = new SecureRandom();
 
     /**
      * Metodo para registrar un nuevo usuario.
@@ -27,18 +40,55 @@ public class RegisterUseCaseImpl implements RegisterUseCase {
      * @return - Usuario registrado
      */
     @Transactional
-    public Usuario register(RegisterCommand command) {
-        //Validar la contraseñas
-        if(!command.password().equals(command.confirmPassword()))
-            throw new BusinessRuleException("Las contraseñas ingresadas no coinciden");
+    public void register(RegisterCommand command) {
+        if (usuarioRepository.exitsByEmail(command.email())) 
+            throw new AlreadyExistsException("El correo ya se encuentra registrado");
+        
 
-        String emailLimpio = command.email().toLowerCase().trim();
-        if(usuarioRepository.exitsByEmail(emailLimpio))
-            throw new AlreadyExistsException("Ya existe una cuenta registrada con ese correo");
+        Usuario nuevoUsuario = new Usuario(
+                null,
+                command.fullname(),
+                command.email(),
+                passwordEncoderPort.encode(command.password()),
+                Rol.CLIENTE,
+                AuthProveedor.LOCAL,
+                0,
+                false, //Inactivo hasta que verifique en la app
+                Instant.now(),
+                Instant.now()
+        );
 
-        String hash = passwordEncoder.encode(command.password());
-        Usuario nuevoUsuario = Usuario.nuevoCliente(command.fullName(),emailLimpio,hash);
+        usuarioRepository.save(nuevoUsuario);
 
-        return usuarioRepository.save(nuevoUsuario);
+        String codigo = generarCodigoOtp();
+        codigoVerificacionPort.registrarNuevoCodigo(command.email(), codigo);
+        emailSenderPort.sendVerificationCodeEmail(command.email(), codigo);
+    }
+
+    @Override
+    @Transactional
+    public Usuario verifyCode(String email, String codigo) {
+        var resultado = codigoVerificacionPort.verificarCodigo(email, codigo);
+
+        if (resultado.codigoResultado() != 0)  throw new BusinessRuleException(resultado.mensaje());
+        
+        return usuarioRepository.findById(resultado.usuarioId())
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+    }
+
+    @Override
+    @Transactional
+    public void resendCode(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con ese correo"));
+
+        if (Boolean.TRUE.equals(usuario.activo())) throw new BusinessRuleException("La cuenta ya se encuentra activada");
+        
+        String nuevoCodigo = generarCodigoOtp();
+        codigoVerificacionPort.registrarNuevoCodigo(email, nuevoCodigo);
+        emailSenderPort.sendVerificationCodeEmail(email, nuevoCodigo);
+    }
+
+    private String generarCodigoOtp() {
+        return String.valueOf(1000 + secureRandom.nextInt(9000));
     }
 }

@@ -5,13 +5,13 @@ body:
   type: json
   content: "{\r
 
-    \  \"fullName\": \"Laura Vatzz\",\r
+    \  \"fullName\": \"Daniel Singer\",\r
 
-    \  \"email\": \"laura.vat@cavosh.com\",\r
+    \  \"email\": \"danielsinger07@hotmail.com\",\r
 
-    \  \"password\": \"Password123!\",\r
+    \  \"password\": \"123456789\",\r
 
-    \  \"confirmPassword\": \"Password123!\"\r
+    \  \"confirmPassword\": \"123456789\"\r
 
     }"
 examples: .resources/Registrar Nuevo Usuario.resources/examples

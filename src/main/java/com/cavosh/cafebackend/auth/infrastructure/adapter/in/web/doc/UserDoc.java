@@ -31,10 +31,9 @@ public interface UserDoc {
             @ApiResponse(responseCode = "401", description = "No autenticado o token JWT inválido/expirado"),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    ResponseEntity<ResponseGlobal<UserProfileResponse>> getProfile(
-            @Parameter(hidden = true) Usuario usuarioAuth
-    );
-
+    ResponseEntity<ResponseGlobal<UserProfileResponse>> getProfile(@Parameter(hidden = true) Usuario usuarioAuth);
+    
+    
     @Operation(
             summary = "Actualizar perfil de usuario",
             description = "Permite al cliente autenticado modificar su nombre completo."

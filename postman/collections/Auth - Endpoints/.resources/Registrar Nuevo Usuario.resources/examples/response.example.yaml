@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/auth/registrar"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"fullName\": \"Daniel Singer\",\r
+
+      \  \"email\": \"danielsinger07@hotmail.com\",\r
+
+      \  \"password\": \"123456789\",\r
+
+      \  \"confirmPassword\": \"123456789\"\r
+
+      }"
+response:
+  statusCode: 201
+  statusText: ""
+  headers:
+    vary: Origin
+    x-content-type-options: nosniff
+    x-xss-protection: "0"
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
+    pragma: no-cache
+    expires: "0"
+    x-frame-options: DENY
+    content-type: application/json
+    transfer-encoding: chunked
+    date: Sun, 20 Sep 2026 02:18:24 GMT
+    keep-alive: timeout=60
+    connection: keep-alive
+  body:
+    type: json
+    content: |-
+      {
+        "success": true,
+        "status": 201,
+        "message": "Usuario registrado. Te hemos enviado un código de verificación a tu correo",
+        "timestamp": "2026-09-20T02:18:24.662489600Z"
+      }
+order: 1789870800456
