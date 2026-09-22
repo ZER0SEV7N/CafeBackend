@@ -20,6 +20,15 @@ DROP TYPE IF EXISTS estado_pedido CASCADE;
 DROP TYPE IF EXISTS metodo_pago CASCADE;
 DROP TYPE IF EXISTS tipo_entrega CASCADE;
 DROP TYPE IF EXISTS proveedor_auth CASCADE;
+DROP TYPE IF EXISTS codigo_verificacion CASCADE;
+
+DROP FUNCTION IF EXISTS sp_verificar_codigo_otp(VARCHAR, VARCHAR) CASCADE;
+
+DROP FUNCTION IF EXISTS sp_generar_codigo_otp(VARCHAR, VARCHAR, INT) CASCADE;
+DROP FUNCTION IF EXISTS sp_obtener_productos_frecuentes(INT, INT, INT, INT) CASCADE;
+DROP FUNCTION IF EXISTS sp_obtener_tiendas_frecuentes(INT, INT, INT, INT) CASCADE;
+
+
 
 
 -- Crear los tipos ENUM
@@ -223,7 +232,7 @@ CREATE TABLE tokens_recuperacion (
 
 -- Índice para la busqueda de tokens
 CREATE INDEX idx_tokens_recuperacion_token ON tokens_recuperacion(token);
-CREATE INDEX idx_codigos_verif_usuario ON codigos_verificacion(usuario_id, usado);
+
 
 -- Tabla para los codigos de verificacion
 CREATE TABLE IF NOT EXISTS codigos_verificacion (
@@ -237,6 +246,8 @@ CREATE TABLE IF NOT EXISTS codigos_verificacion (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_codigo_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_codigos_verif_usuario ON codigos_verificacion(usuario_id, usado);
 
 -- Procedimiento almacenado para verificar el código OTP
 CREATE OR REPLACE FUNCTION sp_verificar_codigo_otp(
